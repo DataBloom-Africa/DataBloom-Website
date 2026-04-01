@@ -1,0 +1,81 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 2rem;
+  min-height: calc(100vh - 88px); /* Take up most of the viewport minus header */
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 65px; /* Matched from Builder.io */
+}
+
+.hero-title {
+  color: #000;
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: clamp(48px, 6vw, 96px); /* Fluid size matching 96px max */
+  font-weight: 600;
+  line-height: 0.95; /* 93.75% from Builder.io */
+  margin: 0;
+}
+
+.hero-button {
+  background-color: #135162; /* Teal color */
+  color: #FFF;
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 400;
+  border: none;
+  border-radius: 20px;
+  padding: 1.25rem 3rem; 
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hero-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  background-color: #1a6d84; /* Slightly lighter on hover */
+  box-shadow: 0 10px 20px rgba(19, 81, 98, 0.3);
+}
+
+.hero-image-container {
+  flex: 1.2; /* Allows it to take up more space to be larger */
+  display: flex;
+  justify-content: flex-start; /* Brings it closer to the text column */
+  align-items: center;
+  margin-left: -4rem; /* Pulls it even closer to reduce the gap */
+}
+
+.hero-image {
+  width: 130%; /* Make it pop out of the container to be massively larger */
+  max-width: 1000px; /* Increased from 600px */
+  max-height: 85vh; /* Prevents it from getting too tall on short screens */
+  height: auto;
+  object-fit: contain;
+}
+
+/* Responsive stack for mobile/tablets */
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 1rem;
+    gap: 3rem;
+  }
+  
+  .hero-content {
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .hero-image-container {
+    justify-content: center;
+  }
+}
