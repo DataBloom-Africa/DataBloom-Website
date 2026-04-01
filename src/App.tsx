@@ -1,5 +1,5 @@
 import './App.css'
-import { Navbar, Hero, Gallery } from './components'
+import { Navbar, Hero, Gallery, Services, Programs } from './components'
 
 function App() {
   return (
@@ -9,6 +9,8 @@ function App() {
       <main style={{ flex: 1 }}>
         <Hero />
         <Gallery />
+        <Services />
+        <Programs />
       </main>
 
       <footer style={{ padding: '2rem', backgroundColor: '#135162', color: 'white', textAlign: 'center' }}>

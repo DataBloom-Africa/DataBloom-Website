@@ -19,16 +19,7 @@ export const Gallery: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Smoothly scroll to the newly active video
-  useEffect(() => {
-    if (cardRefs.current[activeIndex]) {
-      cardRefs.current[activeIndex]?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
-      });
-    }
-  }, [activeIndex]);
+  // Removed scrollIntoView because it was forcing the browser to jump vertically to the gallery section
 
   return (
     <section className="gallery-section">

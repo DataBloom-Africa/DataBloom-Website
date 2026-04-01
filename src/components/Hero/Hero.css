@@ -59,6 +59,20 @@
   max-height: 85vh; /* Prevents it from getting too tall on short screens */
   height: auto;
   object-fit: contain;
+  transform: rotate(12.982deg); /* Initial rotation */
+  animation: floatNetwork 5s ease-in-out infinite;
+}
+
+@keyframes floatNetwork {
+  0% {
+    transform: translateY(0) rotate(12.982deg) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) rotate(16deg) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) rotate(12.982deg) scale(1);
+  }
 }
 
 /* Responsive stack for mobile/tablets */

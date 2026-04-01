@@ -19,7 +19,6 @@ export const Hero: React.FC = () => {
           src="https://api.builder.io/api/v1/image/assets/TEMP/28421549a72c56592625e3717f4c7400778618e8?width=2336" 
           alt="Network Graphic" 
           className="hero-image"
-          style={{ transform: 'rotate(12.982deg)' }}
         />
       </div>
     </section>

@@ -1,0 +1,109 @@
+.services-section {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: var(--color-bg-white);
+}
+
+.services-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.services-title {
+  color: #000;
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 400;
+  margin: 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.service-card {
+  background-color: #D9D9D9; /* Matching Figma grey boxes */
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.service-card-left {
+  flex: 0 0 160px; /* Fixed width for the image */
+  background-color: rgba(255, 255, 255, 0.4); /* Subtle backing for the image placeholder */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.service-feature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures any inserted picture fills the box nicely */
+}
+
+.service-card-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.service-card-title {
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-primary-navy);
+}
+
+.service-card-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  background-color: var(--color-primary-navy);
+  color: white;
+  border: none;
+  font-family: 'Poppins', var(--font-family-sans);
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.service-card-btn:hover {
+  background-color: var(--color-primary-teal);
+}
+
+/* Responsive constraints */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    flex-direction: column;
+  }
+  .service-card-left {
+    flex: 0 0 200px; /* Allow the image section to take up vertical height on mobile */
+  }
+}
