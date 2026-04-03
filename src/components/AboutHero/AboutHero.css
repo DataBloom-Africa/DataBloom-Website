@@ -1,0 +1,49 @@
+.about-hero {
+  width: 100%;
+  padding: 8rem 2rem 4rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.about-hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(3rem, 10vw, 4rem);
+  font-weight: 400;
+  margin: 0;
+  color: #000;
+  letter-spacing: -0.02em;
+}
+
+.about-hero-underline {
+  width: 120px;
+  height: 6px;
+  background-color: #DA9D1D;
+}
+
+.about-hero-image-container {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.about-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding-top: 6rem;
+  }
+}

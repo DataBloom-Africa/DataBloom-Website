@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 export const Navbar: React.FC = () => {
@@ -7,20 +7,22 @@ export const Navbar: React.FC = () => {
       <div className="navbar-top-bar"></div>
       <nav className="navbar">
         <div className="logo-container">
-          <a href="/">
+          <Link to="/">
             <img 
               className="logo-image" 
               src="https://api.builder.io/api/v1/image/assets/TEMP/179ce6925a4673b66e74c0a3c7f70c9c335ac6c9?width=322" 
               alt="DataBloom Logo" 
             />
-          </a>
+          </Link>
         </div>
         
         <div className="nav-links">
-          <a href="/" className="nav-item">HOME</a>
-          <a href="/about" className="nav-item">ABOUT US</a>
-          <a href="/services" className="nav-item">OUR SERVICES</a>
-          <a href="/donate" className="nav-item">DONATE</a>
+          <Link to="/" className="nav-item">HOME</Link>
+          <Link to="/about" className="nav-item">ABOUT US</Link>
+          <Link to="/services" className="nav-item">SERVICES</Link>
+          <Link to="/programs" className="nav-item">PROGRAMS</Link>
+          <Link to="/donations" className="nav-item">DONATE</Link>
+          <Link to="/contact" className="nav-item">CONTACT</Link>
         </div>
 
         <div className="mobile-menu-icon">

@@ -27,6 +27,8 @@
 }
 
 .hero-button {
+  display: inline-block;
+  text-decoration: none;
   background-color: #135162; /* Teal color */
   color: #FFF;
   font-family: 'Poppins', var(--font-family-sans);

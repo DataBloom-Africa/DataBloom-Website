@@ -71,6 +71,27 @@
   font-family: 'Poppins', var(--font-family-sans);
   font-size: 16px;
   color: #333;
+  margin-bottom: 2rem;
+  flex-grow: 1;
+}
+
+.program-card-btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #135162;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+  text-align: center;
+}
+
+.program-card-btn:hover {
+  background-color: #DA9D1D;
+  transform: translateY(-2px);
 }
 
 /* Responsive constraints */

@@ -1,0 +1,332 @@
+.program-detail {
+  width: 100%;
+  background-color: #fcfcfc;
+}
+
+.program-detail-body {
+  padding: 6rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.program-main-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 5rem;
+}
+
+/* Info Section */
+.program-info h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  color: #135162;
+  margin-bottom: 2rem;
+}
+
+.description-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 3rem;
+}
+
+.custom-content {
+  margin-bottom: 3rem;
+  font-family: 'Poppins', sans-serif;
+  color: #555;
+  line-height: 1.7;
+}
+
+.program-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.spec-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #135162;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.spec-value {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: 500;
+}
+
+/* Sidebar */
+.program-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.cta-card {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  text-align: center;
+  border: 1px solid #f0f0f0;
+}
+
+.price-tag {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.price-tag .currency {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #135162;
+}
+
+.price-tag .amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #DA9D1D;
+}
+
+.primary-cta-btn {
+  width: 100%;
+  padding: 1.2rem;
+  background-color: #135162;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.primary-cta-btn:hover:not(:disabled) {
+  background-color: #0d3b48;
+  transform: translateY(-2px);
+}
+
+.primary-cta-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.cta-note {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+.help-card {
+  background: #f0f7f9;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.help-card h4 {
+  color: #135162;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.help-card p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.help-link {
+  color: #DA9D1D;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Registration Form */
+.registration-wrapper {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.registration-header {
+  margin-bottom: 3rem;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #135162;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  font-family: inherit;
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+  transform: translateX(-5px);
+}
+
+.registration-header h2 {
+  margin-bottom: 0.5rem;
+}
+
+.registration-header p {
+  color: #666;
+}
+
+.registration-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #135162;
+  box-shadow: 0 0 0 2px rgba(19, 81, 98, 0.1);
+}
+
+/* Integrated Payment Area */
+.payment-integration-area {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+}
+
+.paystack-card-integrated {
+  background: #f0f7f9;
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid #e0eef2;
+}
+
+.paystack-secure-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1a7f37;
+  background: #dafbe1;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.payment-details {
+  margin-bottom: 2rem;
+}
+
+.payment-inscription {
+  font-size: 1rem;
+  color: #135162;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid #DA9D1D;
+  line-height: 1.5;
+}
+
+.final-price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.price-val {
+  color: #DA9D1D;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-left: 0.5rem;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #DA9D1D;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(218, 157, 29, 0.2);
+}
+
+.pay-btn:hover {
+  background-color: #c48b1a;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(218, 157, 29, 0.3);
+}
+
+.pay-disclaimer {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #888;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .program-main-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  
+  .program-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .registration-wrapper {
+    padding: 1.5rem;
+  }
+
+  .paystack-card-integrated {
+    padding: 1.5rem;
+  }
+}

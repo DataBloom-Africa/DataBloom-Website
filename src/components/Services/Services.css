@@ -76,6 +76,9 @@
 }
 
 .service-card-btn {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
   margin-top: auto;
   align-self: flex-start;
   background-color: var(--color-primary-navy);
@@ -85,14 +88,64 @@
   padding: 0.75rem 2rem;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .service-card-btn:hover {
   background-color: var(--color-primary-teal);
 }
 
+/* Large Variant for Services Page */
+.services-large {
+  padding-top: 4rem;
+  padding-bottom: 6rem;
+}
+
+.services-large .services-grid {
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  max-width: 1000px; /* Center and constrain for readability */
+  margin: 0 auto;
+}
+
+.services-large .service-card {
+  min-height: auto; /* Remove extreme height constraint */
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Cleaner shadow */
+}
+
+.services-large .service-card-title {
+  font-size: 2.2rem; /* Scaled down slightly for balance */
+  margin-bottom: 1rem;
+}
+
+.services-large .service-card-desc {
+  font-size: 1.15rem; /* Better balance with title */
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.services-large .service-card-left {
+  flex: 0 0 250px;
+  height: 250px;
+}
+
 /* Responsive constraints */
+@media (max-width: 900px) { /* Trigger column earlier */
+  .services-large .service-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .services-large .service-card-left {
+    margin: 0 auto 2rem;
+    width: 100%;
+    max-width: 300px;
+  }
+  .services-large .service-card-btn {
+    align-self: center;
+  }
+}
+
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: 1fr;

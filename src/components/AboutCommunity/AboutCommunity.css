@@ -1,0 +1,56 @@
+.about-community {
+  width: 100%;
+  padding: 6rem 2rem;
+  background-color: #fafafa;
+}
+
+.about-community-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.about-community-header {
+  max-width: 800px;
+}
+
+.about-community-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  color: #135162;
+  margin-bottom: 1rem;
+}
+
+.about-community-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.about-community-image-wrapper {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.about-community-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.about-community-image:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .about-community {
+    padding: 4rem 1.5rem;
+  }
+}

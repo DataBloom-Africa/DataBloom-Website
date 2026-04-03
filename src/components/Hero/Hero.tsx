@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 export const Hero: React.FC = () => {
@@ -10,9 +11,9 @@ export const Hero: React.FC = () => {
           AFRICA’S DATA <br />
           POTENTIAL
         </h1>
-        <button className="hero-button">
+        <Link to="/contact" className="hero-button">
           JOIN US
-        </button>
+        </Link>
       </div>
       <div className="hero-image-container">
         <img 

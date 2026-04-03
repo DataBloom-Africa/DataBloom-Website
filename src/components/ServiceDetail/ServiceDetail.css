@@ -1,0 +1,159 @@
+.service-detail {
+  width: 100%;
+}
+
+.service-detail-hero {
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 2rem;
+}
+
+.hero-content-inner {
+  max-width: 900px;
+}
+
+.service-detail-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #DA9D1D;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.service-detail-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
+
+.service-detail-content {
+  padding: 8rem 2rem;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.main-description {
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.main-description h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  color: #135162;
+  margin-bottom: 2rem;
+}
+
+.main-description p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.features-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 6rem;
+}
+
+.detail-block {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.teal-border {
+  border-top: 6px solid #135162;
+}
+
+.gold-border {
+  border-top: 6px solid #DA9D1D;
+}
+
+.detail-block h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #135162;
+  margin-bottom: 1.5rem;
+}
+
+.detail-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-block li {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.detail-block li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #DA9D1D;
+}
+
+.service-cta {
+  text-align: center;
+  padding: 4rem;
+  background-color: #135162;
+  color: #fff;
+  border-radius: 20px;
+}
+
+.service-cta h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background-color: #DA9D1D;
+  color: #fff;
+  border: none;
+  padding: 1rem 3rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  background-color: #c48b1a;
+}
+
+@media (max-width: 768px) {
+  .service-detail-title {
+    font-size: 2.5rem;
+  }
+  .features-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  .service-detail-hero {
+    height: 400px;
+  }
+}
