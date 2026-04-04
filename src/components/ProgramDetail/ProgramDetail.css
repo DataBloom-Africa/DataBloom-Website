@@ -88,8 +88,52 @@
 .price-tag {
   margin-bottom: 2rem;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price-original {
+  display: flex;
   align-items: baseline;
-  justify-content: center;
+  gap: 0.25rem;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.currency-original {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.amount-original {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #555;
+}
+
+.price-discounted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.discount-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: #DA9D1D;
+  padding: 0.2rem 0.75rem;
+  border-radius: 20px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
   gap: 0.5rem;
 }
 
@@ -103,6 +147,14 @@
   font-size: 3.5rem;
   font-weight: 800;
   color: #DA9D1D;
+}
+
+.form-discount-note {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #888;
+  margin-top: 0.25rem;
 }
 
 .primary-cta-btn {
@@ -309,6 +361,30 @@
   margin-top: 1rem;
   font-size: 0.8rem;
   color: #888;
+  text-align: center;
+}
+
+.success-message {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.success-message h3 {
+  font-size: 2rem;
+  color: #135162;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+.form-error {
+  color: #c0392b;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 

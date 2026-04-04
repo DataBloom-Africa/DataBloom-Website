@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageHero } from '../PageHero';
 import { Link } from 'react-router-dom';
+import { supabase } from '../../lib/supabase';
 import './ProgramDetail.css';
 
 interface ProgramDetailProps {
@@ -12,6 +13,7 @@ interface ProgramDetailProps {
   ctaType: 'link' | 'notify' | 'pay' | 'register';
   ctaText: string;
   price?: string;
+  originalPrice?: string;
   ctaNote?: string;
   paymentInscription?: string;
   contentNodes?: React.ReactNode;
@@ -25,11 +27,40 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   ctaType,
   ctaText,
   price,
+  originalPrice,
   ctaNote,
   paymentInscription,
   contentNodes
 }) => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const [formData, setFormData] = useState({ full_name: '', email: '', profession: '', organization: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError('');
+
+    const { error } = await supabase.from('registrations').insert({
+      ...formData,
+      program: title,
+      amount_paid: price ? parseFloat(price) : 0,
+      payment_status: 'pending',
+    });
+
+    setSubmitting(false);
+    if (error) {
+      setSubmitError('Something went wrong. Please try again.');
+    } else {
+      setSubmitSuccess(true);
+    }
+  };
 
   return (
     <div className="program-detail">
@@ -65,38 +96,51 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                     <p>Please fill in your details to secure your spot for the {title}.</p>
                   </div>
 
-                  <form className="registration-form" onSubmit={(e) => e.preventDefault()}>
-                    <div className="form-group">
-                      <label>Full Name</label>
-                      <input type="text" placeholder="Enter your full name" required />
+                  {submitSuccess ? (
+                    <div className="success-message">
+                      <h3>You're registered!</h3>
+                      <p>Thank you, {formData.full_name}. Your spot for the {title} has been secured. Check your email for further details.</p>
                     </div>
-                    <div className="form-group">
-                      <label>Email Address</label>
-                      <input type="email" placeholder="example@email.com" required />
-                    </div>
-                    <div className="form-group">
-                      <label>Profession</label>
-                      <input type="text" placeholder="What is your current role?" required />
-                    </div>
-                    <div className="form-group">
-                      <label>Organization / School</label>
-                      <input type="text" placeholder="Where do you work/study?" required />
-                    </div>
-
-                    <div className="payment-integration-area">
-                      <div className="paystack-card-integrated">
-                        <div className="paystack-secure-badge">🔒 Secure Registration Payment</div>
-                        <div className="payment-details">
-                          <p className="payment-inscription">{paymentInscription || "Your payment supports our mission."}</p>
-                          <div className="final-price">
-                            Total: <span className="price-val">GHS {price}</span>
-                          </div>
-                        </div>
-                        <button className="pay-btn">Complete Registration with Paystack</button>
-                        <p className="pay-disclaimer">Includes access link and digital resources.</p>
+                  ) : (
+                    <form className="registration-form" onSubmit={handleSubmit}>
+                      <div className="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" required />
                       </div>
-                    </div>
-                  </form>
+                      <div className="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Profession</label>
+                        <input type="text" name="profession" value={formData.profession} onChange={handleChange} placeholder="What is your current role?" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Organization / School</label>
+                        <input type="text" name="organization" value={formData.organization} onChange={handleChange} placeholder="Where do you work/study?" required />
+                      </div>
+
+                      <div className="payment-integration-area">
+                        <div className="paystack-card-integrated">
+                          <div className="paystack-secure-badge">🔒 Secure Registration Payment</div>
+                          <div className="payment-details">
+                            <p className="payment-inscription">{paymentInscription || "Your payment supports our mission."}</p>
+                            <div className="final-price">
+                              Total: <span className="price-val">GHS {price}</span>
+                              {originalPrice && (
+                                <span className="form-discount-note"> — Discounted price (was GHS {originalPrice})</span>
+                              )}
+                            </div>
+                          </div>
+                          {submitError && <p className="form-error">{submitError}</p>}
+                          <button className="pay-btn" type="submit" disabled={submitting}>
+                            {submitting ? 'Saving...' : 'Complete Registration with Paystack'}
+                          </button>
+                          <p className="pay-disclaimer">Includes access link and digital resources.</p>
+                        </div>
+                      </div>
+                    </form>
+                  )}
                 </div>
               )}
             </div>
@@ -105,10 +149,13 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
             {!isRegistering && (
               <div className="program-sidebar">
                 <div className="cta-card">
-                  {price && (
+                  {originalPrice && (
                     <div className="price-tag">
-                      <span className="currency">GHS</span>
-                      <span className="amount">{price}</span>
+                      <div className="price-original">
+                        <span className="currency-original">GHS</span>
+                        <span className="amount-original">{originalPrice}</span>
+                      </div>
+                      <span className="discount-badge">Early Bird Discount</span>
                     </div>
                   )}
                   
