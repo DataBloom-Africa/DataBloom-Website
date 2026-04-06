@@ -1,8 +1,22 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import './App.css';
 import { Navbar, Footer } from './components';
-import { Home, About, ServicesPage, ProgramsPage, InsightsPage, Donations, Contact, AITraining, CorporateTraining, TechSolutions, CommunityOutreach, FutureCode, IntelligentBusiness, HighSchoolClub } from './pages';
+
+const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
+const About = lazy(() => import('./pages/About').then(m => ({ default: m.About })));
+const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ default: m.ServicesPage })));
+const ProgramsPage = lazy(() => import('./pages/ProgramsPage').then(m => ({ default: m.ProgramsPage })));
+const InsightsPage = lazy(() => import('./pages/InsightsPage').then(m => ({ default: m.InsightsPage })));
+const Donations = lazy(() => import('./pages/Donations').then(m => ({ default: m.Donations })));
+const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
+const AITraining = lazy(() => import('./pages/services/AITraining').then(m => ({ default: m.AITraining })));
+const CorporateTraining = lazy(() => import('./pages/services/CorporateTraining').then(m => ({ default: m.CorporateTraining })));
+const TechSolutions = lazy(() => import('./pages/services/TechSolutions').then(m => ({ default: m.TechSolutions })));
+const CommunityOutreach = lazy(() => import('./pages/services/CommunityOutreach').then(m => ({ default: m.CommunityOutreach })));
+const FutureCode = lazy(() => import('./pages/FutureCode').then(m => ({ default: m.FutureCode })));
+const IntelligentBusiness = lazy(() => import('./pages/IntelligentBusiness').then(m => ({ default: m.IntelligentBusiness })));
+const HighSchoolClub = lazy(() => import('./pages/HighSchoolClub').then(m => ({ default: m.HighSchoolClub })));
 
 // Helper component to scroll to top on route change
 const ScrollToTop = () => {
@@ -21,6 +35,7 @@ function App() {
         <Navbar />
         
         <main style={{ flex: 1 }}>
+          <Suspense fallback={<div style={{ minHeight: '60vh' }} />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -41,6 +56,7 @@ function App() {
             <Route path="/programs/intelligent-business" element={<IntelligentBusiness />} />
             <Route path="/programs/high-school-club" element={<HighSchoolClub />} />
           </Routes>
+          </Suspense>
         </main>
 
         <Footer />
