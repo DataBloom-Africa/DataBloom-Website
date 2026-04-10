@@ -6,13 +6,13 @@ import './ProgramDetail.css';
 
 declare global {
   interface Window {
-    PaystackPop: {
-      setup: (config: {
+    PaystackPop: new () => {
+      newTransaction: (config: {
         key: string; email: string; amount: number; currency: string;
         ref: string; firstname: string;
-        callback: (response: { reference: string }) => void;
-        onClose: () => void;
-      }) => { openIframe: () => void };
+        onSuccess: (transaction: { reference: string }) => void;
+        onCancel: () => void;
+      }) => void;
     };
   }
 }
@@ -56,7 +56,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     if (!isRegistering) return;
     if (window.PaystackPop) { setPaystackReady(true); return; }
     const script = document.createElement('script');
-    script.src = 'https://js.paystack.co/v1/inline.js';
+    script.src = 'https://js.paystack.co/v2/inline.js';
     script.onload = () => setPaystackReady(true);
     script.onerror = () => setSubmitError('Payment system failed to load. Please refresh and try again.');
     document.body.appendChild(script);
@@ -78,21 +78,22 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     const amountInPesewas = Math.round(parseFloat(price || '0') * 100);
     const ref = `DB-${Date.now()}`;
 
-    const handler = window.PaystackPop.setup({
+    const popup = new window.PaystackPop();
+    popup.newTransaction({
       key: 'pk_test_9893d8140e069d79372faa87c6f1933c8739abb1',
       email: formData.email,
       amount: amountInPesewas,
       currency: 'GHS',
       ref,
       firstname: formData.full_name,
-      callback: async (response) => {
+      onSuccess: async (transaction: { reference: string }) => {
         setSubmitting(true);
         const { error } = await supabase.from('registrations').insert({
           ...formData,
           program: title,
           amount_paid: parseFloat(price || '0'),
           payment_status: 'success',
-          payment_reference: response.reference,
+          payment_reference: transaction.reference,
         });
         setSubmitting(false);
         if (error) {
@@ -101,12 +102,10 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
           setSubmitSuccess(true);
         }
       },
-      onClose: () => {
+      onCancel: () => {
         setSubmitError('Payment was not completed. Please try again.');
       },
     });
-
-    handler.openIframe();
   };
 
   return (
