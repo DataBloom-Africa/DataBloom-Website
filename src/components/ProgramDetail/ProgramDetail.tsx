@@ -4,6 +4,19 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import './ProgramDetail.css';
 
+declare global {
+  interface Window {
+    PaystackPop: {
+      setup: (config: {
+        key: string; email: string; amount: number; currency: string;
+        ref: string; firstname: string;
+        callback: (response: { reference: string }) => void;
+        onClose: () => void;
+      }) => { openIframe: () => void };
+    };
+  }
+}
+
 interface ProgramDetailProps {
   title: string;
   subtitle: string;
@@ -42,24 +55,42 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
     setSubmitError('');
 
-    const { error } = await supabase.from('registrations').insert({
-      ...formData,
-      program: title,
-      amount_paid: price ? parseFloat(price) : 0,
-      payment_status: 'pending',
+    const amountInPesewas = Math.round(parseFloat(price || '0') * 100);
+    const ref = `DB-${Date.now()}`;
+
+    const handler = window.PaystackPop.setup({
+      key: 'pk_test_9893d8140e069d79372faa87c6f1933c8739abb1',
+      email: formData.email,
+      amount: amountInPesewas,
+      currency: 'GHS',
+      ref,
+      firstname: formData.full_name,
+      callback: async (response) => {
+        setSubmitting(true);
+        const { error } = await supabase.from('registrations').insert({
+          ...formData,
+          program: title,
+          amount_paid: parseFloat(price || '0'),
+          payment_status: 'success',
+          payment_reference: response.reference,
+        });
+        setSubmitting(false);
+        if (error) {
+          setSubmitError('Payment received but registration failed. Please contact support.');
+        } else {
+          setSubmitSuccess(true);
+        }
+      },
+      onClose: () => {
+        setSubmitError('Payment was not completed. Please try again.');
+      },
     });
 
-    setSubmitting(false);
-    if (error) {
-      setSubmitError('Something went wrong. Please try again.');
-    } else {
-      setSubmitSuccess(true);
-    }
+    handler.openIframe();
   };
 
   return (
