@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageHero } from '../PageHero';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
@@ -50,6 +50,17 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [paystackReady, setPaystackReady] = useState(false);
+
+  useEffect(() => {
+    if (!isRegistering) return;
+    if (window.PaystackPop) { setPaystackReady(true); return; }
+    const script = document.createElement('script');
+    script.src = 'https://js.paystack.co/v1/inline.js';
+    script.onload = () => setPaystackReady(true);
+    script.onerror = () => setSubmitError('Payment system failed to load. Please refresh and try again.');
+    document.body.appendChild(script);
+  }, [isRegistering]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -58,6 +69,11 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError('');
+
+    if (!paystackReady || !window.PaystackPop) {
+      setSubmitError('Payment system is still loading. Please wait a moment and try again.');
+      return;
+    }
 
     const amountInPesewas = Math.round(parseFloat(price || '0') * 100);
     const ref = `DB-${Date.now()}`;
@@ -164,8 +180,8 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                             </div>
                           </div>
                           {submitError && <p className="form-error">{submitError}</p>}
-                          <button className="pay-btn" type="submit" disabled={submitting}>
-                            {submitting ? 'Saving...' : 'Complete Registration with Paystack'}
+                          <button className="pay-btn" type="submit" disabled={submitting || !paystackReady}>
+                            {!paystackReady ? 'Loading payment...' : submitting ? 'Saving...' : 'Complete Registration with Paystack'}
                           </button>
                           <p className="pay-disclaimer">Includes access link and digital resources.</p>
                         </div>
