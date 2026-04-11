@@ -21,7 +21,8 @@ export const Contact: React.FC = () => {
       await sendContactEmail(formData);
       setSuccess(true);
       setFormData({ name: '', email: '', title: '', message: '' });
-    } catch {
+    } catch (err) {
+      console.error('EmailJS error:', err);
       setError('Failed to send message. Please try again.');
     } finally {
       setSending(false);
