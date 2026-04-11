@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageHero } from '../PageHero';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
+import { sendRegistrationEmail } from '../../lib/emailjs';
 import './ProgramDetail.css';
 
 declare global {
@@ -66,12 +67,25 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError('');
 
     if (!paystackReady || !window.PaystackPop) {
       setSubmitError('Payment system is still loading. Please wait a moment and try again.');
+      return;
+    }
+
+    // Check for duplicate registration
+    const { data: existing } = await supabase
+      .from('registrations')
+      .select('id')
+      .eq('email', formData.email)
+      .eq('program', title)
+      .maybeSingle();
+
+    if (existing) {
+      setSubmitError('This email is already registered for this program.');
       return;
     }
 
@@ -95,12 +109,18 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
           payment_status: 'success',
           payment_reference: transaction.reference,
         });
-        setSubmitting(false);
-        if (error) {
-          setSubmitError('Payment received but registration failed. Please contact support.');
-        } else {
+        if (!error) {
+          await sendRegistrationEmail({
+            to_name: formData.full_name,
+            to_email: formData.email,
+            program_name: title,
+            amount: price || '0',
+          });
           setSubmitSuccess(true);
+        } else {
+          setSubmitError('Payment received but registration failed. Please contact support.');
         }
+        setSubmitting(false);
       },
       onCancel: () => {
         setSubmitError('Payment was not completed. Please try again.');
