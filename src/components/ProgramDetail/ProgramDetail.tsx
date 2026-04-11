@@ -109,18 +109,18 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
           payment_status: 'success',
           payment_reference: transaction.reference,
         });
+        setSubmitting(false);
         if (!error) {
-          await sendRegistrationEmail({
+          setSubmitSuccess(true);
+          sendRegistrationEmail({
             to_name: formData.full_name,
             to_email: formData.email,
             program_name: title,
             amount: price || '0',
           });
-          setSubmitSuccess(true);
         } else {
           setSubmitError('Payment received but registration failed. Please contact support.');
         }
-        setSubmitting(false);
       },
       onCancel: () => {
         setSubmitError('Payment was not completed. Please try again.');
