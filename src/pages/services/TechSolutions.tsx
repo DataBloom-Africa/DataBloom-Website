@@ -17,7 +17,7 @@ export const TechSolutions: React.FC = () => {
       ]}
       benefits={[
         "Custom-built solutions for unique challenges",
-        "Highly scalable and secure infrastructure",
+        "Highly scalable and secured infrastructure",
         "Local context and community focus",
         "Modern tech stack and best practices",
         "Continuous product support and growth"
