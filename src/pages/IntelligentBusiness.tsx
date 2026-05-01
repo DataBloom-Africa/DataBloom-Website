@@ -14,11 +14,8 @@ export const IntelligentBusiness: React.FC = () => {
         { label: "Platform", value: "Online" },
         { label: "Certification", value: "Available upon completion" }
       ]}
-      ctaType="register"
-      ctaText="Register"
-      price="87.63"
-      originalPrice="200"
-      paymentInscription="Your payment will be used to help High school and college Students in Data Training"
+      ctaType="notify"
+      ctaText="Registration Coming Soon"
       contentNodes={
         <>
           <h3>What you will learn:</h3>
