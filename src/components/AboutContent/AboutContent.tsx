@@ -17,12 +17,12 @@ export const AboutContent: React.FC = () => {
           </div>
         </div>
         <div className="about-card image-card">
-          <img src="/About/About.jpg" alt="About DataBloom Africa" className="card-image" />
+          <img src="/About/About.webp" alt="About DataBloom Africa" className="card-image" />
         </div>
 
         {/* Row 2: Who We Are */}
         <div className="about-card image-card">
-          <img src="/About/WhoWeAre.jpg" alt="Who We Are" className="card-image" />
+          <img src="/About/WhoWeAre.webp" alt="Who We Are" className="card-image" />
         </div>
         <div className="about-card text-card gold-bg">
           <div className="card-content">
@@ -55,7 +55,7 @@ export const AboutContent: React.FC = () => {
       <div className="team-section">
         <h2 className="team-title text-teal">The Team</h2>
         <div className="team-image-container">
-          <img src="/About/TheTeam.jpg" alt="The DataBloom Africa Team" className="team-image" />
+          <img src="/About/TheTeam.webp" alt="The DataBloom Africa Team" className="team-image" />
         </div>
       </div>
 
