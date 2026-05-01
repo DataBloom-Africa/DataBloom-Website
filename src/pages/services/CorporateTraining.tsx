@@ -6,7 +6,7 @@ export const CorporateTraining: React.FC = () => {
     <ServiceDetail 
       title="Corporate Training"
       subtitle="Empowering Teams for a Data-Driven Future."
-      heroImage="/services/Coperate%20Training%20and%20Capacity%20Building.jpg"
+      heroImage="/services/Coperate%20Training%20and%20Capacity%20Building.webp"
       description="We help organizations navigate the complexities of digital transformation by upskilling their workforce. Our tailored capacity-building programmes ensure that your team stays ahead of the curve in data literacy, AI integration, and modern tech workflows."
       features={[
         "Customized curriculum for business needs",

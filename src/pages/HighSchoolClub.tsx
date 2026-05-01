@@ -6,7 +6,7 @@ export const HighSchoolClub: React.FC = () => {
     <ProgramDetail
       title="DataBloom High School Club"
       subtitle="Inspiring the next generation of African tech leaders."
-      heroImage="/programs/Peki launch.jpg"
+      heroImage="/programs/Peki launch.webp"
       description="Our High School Club initiative brings data literacy and AI fundamentals directly to the classroom. We believe that curiosity sparked at an early age is the foundation for Africa's future technology."
       details={[
         { label: "Impact Area", value: "Secondary Education" },

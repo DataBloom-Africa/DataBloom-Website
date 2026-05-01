@@ -6,7 +6,7 @@ export const CommunityOutreach: React.FC = () => {
     <ServiceDetail 
       title="Community Outreach"
       subtitle="Democratizing Digital Literacy at Every Level."
-      heroImage="/services/Community%20Outreach.png"
+      heroImage="/services/Community%20Outreach.webp"
       description="At DataBloom Africa, we believe that digital opportunity should be accessible to all. Our grassroots initiatives and high school clubs introduce young minds and underserved communities to the world of data and AI, sparking the next generation of African builders."
       features={[
         "High school tech club initiatives",

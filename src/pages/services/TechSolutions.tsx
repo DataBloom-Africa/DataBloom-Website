@@ -6,7 +6,7 @@ export const TechSolutions: React.FC = () => {
     <ServiceDetail 
       title="Tech Solutions"
       subtitle="Innovative Products, African Impact."
-      heroImage="/services/Tech%20Solutions.jpg"
+      heroImage="/services/Tech%20Solutions.webp"
       description="We don't just teach technology—we build it. Our tech solutions arm partners with businesses and social enterprises to design, develop, and deploy highly scalable and secured digital products that solve real problems in Africa."
       features={[
         "Full-stack product development",

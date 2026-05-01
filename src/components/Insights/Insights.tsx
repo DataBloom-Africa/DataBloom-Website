@@ -7,21 +7,21 @@ const insightsData = [
     title: "Future Code Cohort 1 Graduation",
     excerpt: "Our inaugural Future Code cohort crossed the finish line  a proud milestone for DataBloom Africa and a new beginning for a generation of young data and AI builders.",
     date: "2026",
-    image: "/Insights/Graduation.jpg"
+    image: "/Insights/Graduation.webp"
   },
   {
     id: 2,
     title: "DataBloom Contribution to Ghana AI Strategy",
     excerpt: "DataBloom Africa contributed to Ghana's national AI conversation at the MoCDTI and UNESCO AI Readiness Assessment Validation Session  ensuring community-driven perspectives shape Africa's digital future.",
     date: "2026",
-    image: "/Insights/UNESCO.jpg"
+    image: "/Insights/UNESCO.webp"
   },
   {
     id: 3,
     title: "DataBloom Peki High School Club Launch",
     excerpt: "We brought data and AI literacy to the Volta Region with the launch of the DataBloom Club at Peki Senior High School  our first step in reaching secondary school students across Ghana.",
     date: "2026",
-    image: "/Insights/Peki.jpg"
+    image: "/Insights/Peki.webp"
   }
 ];
 

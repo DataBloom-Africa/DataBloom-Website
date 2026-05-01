@@ -6,7 +6,7 @@ export const IntelligentBusiness: React.FC = () => {
     <ProgramDetail
       title="Intelligent Business Webinar"
       subtitle="Transforming Industry with Artificial Intelligence."
-      heroImage="/programs/Intelligent Business.jpg"
+      heroImage="/programs/Intelligent Business.webp"
       description="The Intelligent Business Webinar is designed to provide a comprehensive exploration of how artificial intelligence is transforming the business landscape across Africa. Bringing together industry leaders, tech innovators, and forward-thinking professionals, the webinar offers practical insights tailored for entrepreneurs, corporate decision-makers, and growth-driven individuals."
       details={[
         { label: "Date", value: "May 1st, 2026" },

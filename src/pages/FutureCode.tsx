@@ -6,7 +6,7 @@ export const FutureCode: React.FC = () => {
     <ProgramDetail
       title="Futurecode Project Cohort 2"
       subtitle="The journey to AI mastery continues."
-      heroImage="/programs/Future Code 2.jpg"
+      heroImage="/programs/Future Code 2.webp"
       description="Building on the success of our first cohort, DataBloom Africa is excited to launch Future Code Cohort 2. This intensive program will benefit college students and young professionals who seek to move beyond theory and gain practical, industry-relevant experience."
       details={[
         { label: "Level", value: "Intermediate" },

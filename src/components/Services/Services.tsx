@@ -8,28 +8,28 @@ const servicesData = [
     title: "Data and AI Training",
     slug: "ai-training",
     description: "Building intelligent systems and AI solutions through hands-on, career-focused training that turns learners into builders.",
-    image: "/services/Data%20and%20AI%20Training.jpg"
+    image: "/services/Data%20and%20AI%20Training.webp"
   },
   {
     id: 2,
     title: "Corporate Training & Capacity Building",
     slug: "corporate-training",
     description: "Tailored learning experiences that upskill teams, strengthen internal capabilities, and prepare organisations for a data-driven future.",
-    image: "/services/Coperate%20Training%20and%20Capacity%20Building.jpg"
+    image: "/services/Coperate%20Training%20and%20Capacity%20Building.webp"
   },
   {
     id: 3,
     title: "Tech Solutions & Product Development",
     slug: "tech-solutions",
     description: "End-to-end technology design and development, turning complex business challenges into smart, scalable digital solutions.",
-    image: "/services/Tech%20Solutions.jpg"
+    image: "/services/Tech%20Solutions.webp"
   },
   {
     id: 4,
     title: "School & Community Outreach",
     slug: "community-outreach",
     description: "Grassroots initiatives that introduce young people and underserved communities to the opportunities of technology and digital literacy.",
-    image: "/services/Community%20Outreach.png"
+    image: "/services/Community%20Outreach.webp"
   }
 ];
 
