@@ -1,6 +1,6 @@
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = 'service_g9rcbdi';
+const SERVICE_ID = 'service_wokgafr';
 const PUBLIC_KEY = '-H1EthK8oixJCz_Hk';
 
 export const sendRegistrationEmail = (params: {
