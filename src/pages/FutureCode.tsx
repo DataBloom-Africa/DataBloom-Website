@@ -4,10 +4,10 @@ import { ProgramDetail } from '../components';
 export const FutureCode: React.FC = () => {
   return (
     <ProgramDetail
-      title="Future Code Cohort 2"
+      title="Futurecode Project Cohort 2"
       subtitle="The journey to AI mastery continues."
       heroImage="/programs/Future Code 2.jpg"
-      description="Following the massive success of our first cohort, DataBloom Africa is proud to announce Future Code Cohort 2. This intensive training program is designed specifically for college-level students and young professionals who want to bridge the gap between academic theory and industry reality."
+      description="Building on the success of our first cohort, DataBloom Africa is excited to launch Future Code Cohort 2. This intensive program will benefit college students and young professionals who seek to move beyond theory and gain practical, industry-relevant experience."
       details={[
         { label: "Level", value: "Intermediate" },
         { label: "Duration", value: "12 Weeks" },
@@ -18,8 +18,8 @@ export const FutureCode: React.FC = () => {
       ctaText="Applications Opening Soon"
       contentNodes={
         <>
-          <p>This cohort will dive deeper into advanced machine learning architectures, real-world data engineering pipelines, and the ethical deployment of AI solutions in the African context.</p>
-          <p>Participants will work on capstone projects that address local challenges, from agriculture optimization to financial inclusion.</p>
+          <p>The cohort will explore advanced machine learning architectures, real-world data engineering pipelines, and the responsible deployment of AI solutions within Africa.</p>
+          <p>Additionally, participants will engage in scalable capstone projects focused on solving local challenges.</p>
         </>
       }
     />

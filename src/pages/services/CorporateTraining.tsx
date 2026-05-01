@@ -12,7 +12,7 @@ export const CorporateTraining: React.FC = () => {
         "Customized curriculum for business needs",
         "On-site and remote training options",
         "Executive AI strategy workshops",
-        "Department-specific data literacy",
+        "Industry-specific data literacy",
         "Ongoing support and capacity building"
       ]}
       benefits={[

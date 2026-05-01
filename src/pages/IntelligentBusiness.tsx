@@ -7,7 +7,7 @@ export const IntelligentBusiness: React.FC = () => {
       title="Intelligent Business Webinar"
       subtitle="Transforming Industry with Artificial Intelligence."
       heroImage="/programs/Intelligent Business.jpg"
-      description="Join industry leaders and tech innovators on May 1st, 2026, for a comprehensive exploration of how AI is reshaping the business landscape across Africa. This webinar is curated for entrepreneurs, corporate decision-makers, and forward-thinking professionals."
+      description="The Intelligent Business Webinar is designed to provide a comprehensive exploration of how artificial intelligence is transforming the business landscape across Africa. Bringing together industry leaders, tech innovators, and forward-thinking professionals, the webinar offers practical insights tailored for entrepreneurs, corporate decision-makers, and growth-driven individuals."
       details={[
         { label: "Date", value: "May 1st, 2026" },
         { label: "Time", value: "12:00 PM GMT" },

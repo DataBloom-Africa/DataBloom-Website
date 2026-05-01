@@ -7,7 +7,7 @@ export const TechSolutions: React.FC = () => {
       title="Tech Solutions"
       subtitle="Innovative Products, African Impact."
       heroImage="/services/Tech%20Solutions.jpg"
-      description="We don't just teach technology—we build it. Our tech solutions arm partners with businesses and social enterprises to design, develop, and deploy scalable digital products that solve real problems in the African context."
+      description="We don't just teach technology—we build it. Our tech solutions arm partners with businesses and social enterprises to design, develop, and deploy highly scalable and secured digital products that solve real problems in Africa."
       features={[
         "Full-stack product development",
         "AI and Machine Learning integration",
