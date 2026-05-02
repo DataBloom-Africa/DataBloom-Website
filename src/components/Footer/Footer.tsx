@@ -44,7 +44,6 @@ export const Footer: React.FC = () => {
           <h3 className="footer-col-title">Policies</h3>
           <ul className="footer-links">
             <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-            <li><Link to="/accessibility-statement">Accessibility Statement</Link></li>
             <li><Link to="/terms-conditions">Terms & Conditions</Link></li>
             <li><Link to="/refund-policy">Refund Policy</Link></li>
           </ul>

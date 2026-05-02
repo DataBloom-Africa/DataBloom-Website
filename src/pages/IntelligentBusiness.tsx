@@ -1,8 +1,10 @@
 import React from 'react';
 import { ProgramDetail } from '../components';
+import { LeadGate } from '../components/LeadGate/LeadGate';
 
 export const IntelligentBusiness: React.FC = () => {
   return (
+    <LeadGate>
     <ProgramDetail
       title="Intelligent Business Webinar"
       subtitle="Transforming Industry with Artificial Intelligence."
@@ -29,5 +31,6 @@ export const IntelligentBusiness: React.FC = () => {
         </>
       }
     />
+    </LeadGate>
   );
 };

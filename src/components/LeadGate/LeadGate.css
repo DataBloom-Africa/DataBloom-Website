@@ -1,0 +1,124 @@
+.lead-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+
+.lead-gate-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 36px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.lead-gate-logo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.lead-gate-logo span {
+  color: #F5A623;
+}
+
+.lead-gate-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.lead-gate-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.lead-gate-form .form-group {
+  margin-bottom: 16px;
+}
+
+.lead-gate-form label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.lead-gate-form input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.lead-gate-form input:focus {
+  border-color: #F5A623;
+}
+
+.lead-gate-submit {
+  width: 100%;
+  padding: 12px;
+  background: #F5A623;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.lead-gate-submit:hover {
+  background: #e0941f;
+}
+
+.lead-gate-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.lead-gate-error {
+  color: #e74c3c;
+  font-size: 0.82rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.lead-gate-success {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.lead-gate-success h3 {
+  font-size: 1.3rem;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.lead-gate-success p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.lead-gate-privacy {
+  font-size: 0.75rem;
+  color: #999;
+  text-align: center;
+  margin-top: 14px;
+}
