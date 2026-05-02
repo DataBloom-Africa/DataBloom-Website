@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
             <li><span>GA-539-4038</span></li>
             <li><span>Dansoman, Accra-Ghana</span></li>
             <li><a href="tel:+233547449078">+233 547 449 078</a></li>
-            <li><a href="mailto:info@databloomafrica.org">info@databloomafrica.org</a></li>
+            <li><a href="mailto:info@databloomafrica.com">info@databloomafrica.com</a></li>
           </ul>
         </div>
 
