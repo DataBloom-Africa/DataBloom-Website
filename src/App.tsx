@@ -17,6 +17,9 @@ const CommunityOutreach = lazy(() => import('./pages/services/CommunityOutreach'
 const FutureCode = lazy(() => import('./pages/FutureCode').then(m => ({ default: m.FutureCode })));
 const IntelligentBusiness = lazy(() => import('./pages/IntelligentBusiness').then(m => ({ default: m.IntelligentBusiness })));
 const HighSchoolClub = lazy(() => import('./pages/HighSchoolClub').then(m => ({ default: m.HighSchoolClub })));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
+const TermsConditions = lazy(() => import('./pages/TermsConditions').then(m => ({ default: m.TermsConditions })));
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy').then(m => ({ default: m.RefundPolicy })));
 
 // Helper component to scroll to top on route change
 const ScrollToTop = () => {
@@ -51,6 +54,11 @@ function App() {
             <Route path="/services/tech-solutions" element={<TechSolutions />} />
             <Route path="/services/community-outreach" element={<CommunityOutreach />} />
             
+            {/* Policy Routes */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+
             {/* Program Routes */}
             <Route path="/programs/future-code" element={<FutureCode />} />
             <Route path="/programs/intelligent-business" element={<IntelligentBusiness />} />
