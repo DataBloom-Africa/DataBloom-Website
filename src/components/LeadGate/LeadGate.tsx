@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import './LeadGate.css';
 
@@ -9,17 +9,11 @@ interface LeadGateProps {
 }
 
 export const LeadGate: React.FC<LeadGateProps> = ({ children }) => {
-  const [passed, setPassed] = useState(false);
+  const [passed, setPassed] = useState(() => localStorage.getItem(STORAGE_KEY) === 'true');
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ full_name: '', phone: '', email: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY) === 'true') {
-      setPassed(true);
-    }
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
