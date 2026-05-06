@@ -56,8 +56,8 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     setSubmitError('');
     setSubmitting(true);
 
-    // 12-digit unique transaction ID
-    const transId = Date.now().toString().slice(-12);
+    // 12-digit unique transaction ID (zero-padded)
+    const transId = Date.now().toString().slice(-12).padStart(12, '0');
 
     // Save pending registration — /payment-callback will complete it
     localStorage.setItem(PENDING_KEY, JSON.stringify({
@@ -85,7 +85,8 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
       if (data.checkout_url) {
         window.location.href = data.checkout_url;
       } else {
-        setSubmitError(data.reason || 'Could not initiate payment. Please try again.');
+        // Show the exact TheTeller error so we can diagnose it
+        setSubmitError(`Payment error: ${data.reason || data.message || data.error || JSON.stringify(data)}`);
         setSubmitting(false);
       }
     } catch {
