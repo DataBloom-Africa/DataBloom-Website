@@ -1,16 +1,10 @@
-export default async function handler(req, res) {
-  // Allow requests from the same origin
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { transId, email, amount, title, redirectUrl } = req.body;
 
@@ -24,8 +18,8 @@ export default async function handler(req, res) {
   const ENDPOINT    = 'https://test.theteller.net/checkout/initiate';
 
   const credentials = Buffer.from(`${USERNAME}:${API_KEY}`).toString('base64');
-  // TheTeller expects amount in pesewas (GHS × 100)
-  const amountPesewas = String(Math.round(parseFloat(amount) * 100));
+  // TheTeller expects amount in pesewas (GHS × 100), zero-padded to 12 digits
+  const amountPesewas = String(Math.round(parseFloat(amount) * 100)).padStart(12, '0');
 
   try {
     const response = await fetch(ENDPOINT, {
@@ -52,4 +46,4 @@ export default async function handler(req, res) {
   } catch (err) {
     return res.status(500).json({ error: 'Failed to reach payment provider', details: err.message });
   }
-}
+};
