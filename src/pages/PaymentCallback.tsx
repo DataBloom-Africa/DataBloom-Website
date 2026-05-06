@@ -48,6 +48,22 @@ export const PaymentCallback: React.FC = () => {
         return;
       }
 
+      // Check for duplicate before saving
+      const { data: existing } = await supabase
+        .from('registrations')
+        .select('id')
+        .eq('email', pending.formData.email)
+        .eq('program', pending.program)
+        .maybeSingle();
+
+      if (existing) {
+        // Already registered — payment still went through, treat as success
+        localStorage.removeItem(STORAGE_KEY);
+        setRegistrantName(pending.formData.full_name);
+        setStage('success');
+        return;
+      }
+
       const { error: dbError } = await supabase.from('registrations').insert({
         ...pending.formData,
         program: pending.program,

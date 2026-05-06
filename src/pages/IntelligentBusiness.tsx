@@ -1,10 +1,8 @@
 import React from 'react';
 import { ProgramDetail } from '../components';
-import { LeadGate } from '../components/LeadGate/LeadGate';
 
 export const IntelligentBusiness: React.FC = () => {
   return (
-    <LeadGate>
     <ProgramDetail
       title="Intelligent Business Webinar"
       subtitle="Transforming Industry with Artificial Intelligence."
@@ -16,8 +14,9 @@ export const IntelligentBusiness: React.FC = () => {
         { label: "Platform", value: "Online" },
         { label: "Certification", value: "Available upon completion" }
       ]}
-      ctaType="notify"
-      ctaText="Registration Coming Soon"
+      ctaType="pay"
+      ctaText="Register Now"
+      price="87"
       contentNodes={
         <>
           <h3>What you will learn:</h3>
@@ -31,6 +30,5 @@ export const IntelligentBusiness: React.FC = () => {
         </>
       }
     />
-    </LeadGate>
   );
 };

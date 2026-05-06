@@ -357,6 +357,18 @@
   box-shadow: 0 15px 30px rgba(218, 157, 29, 0.3);
 }
 
+.theteller-btn-wrap {
+  text-align: center;
+  margin: 12px 0;
+}
+
+.pay-ready-note {
+  font-size: 0.88rem;
+  color: #555;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .pay-disclaimer {
   margin-top: 1rem;
   font-size: 0.8rem;
