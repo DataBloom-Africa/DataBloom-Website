@@ -89,8 +89,8 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
         setSubmitError(`Payment error: ${data.reason || data.message || data.error || JSON.stringify(data)}`);
         setSubmitting(false);
       }
-    } catch {
-      setSubmitError('Payment system unavailable. Please try again or contact support.');
+    } catch (err) {
+      setSubmitError(`Payment error: ${String(err)}`);
       setSubmitting(false);
     }
   };
