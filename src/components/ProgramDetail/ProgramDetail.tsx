@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PageHero } from '../PageHero';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { sendRegistrationEmail } from '../../lib/emailjs';
 import './ProgramDetail.css';
 
-declare global {
-  interface Window {
-    PaystackPop: new () => {
-      newTransaction: (config: {
-        key: string; email: string; amount: number; currency: string;
-        ref: string; firstname: string;
-        onSuccess: (transaction: { reference: string }) => void;
-        onCancel: () => void;
-      }) => void;
-    };
-  }
-}
+// TODO: change to live key before launch
+// Live key: YjM5ZjAxYmZiNjZhOGFmODk4MDUxNGYwZTU5ODgyNWQ=
+const THETELLER_API_KEY = 'NDQ0YjQxYTEwOGJkYmQwNmVjN2JiNDdlMzkxY2ViNzM=';
+
+const PENDING_KEY = 'theteller_pending';
 
 interface ProgramDetailProps {
   title: string;
@@ -50,31 +42,15 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   const [formData, setFormData] = useState({ full_name: '', email: '', profession: '', organization: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [paystackReady, setPaystackReady] = useState(false);
-
-  useEffect(() => {
-    if (!isRegistering) return;
-    if (window.PaystackPop) { setPaystackReady(true); return; }
-    const script = document.createElement('script');
-    script.src = 'https://js.paystack.co/v2/inline.js';
-    script.onload = () => setPaystackReady(true);
-    script.onerror = () => setSubmitError('Payment system failed to load. Please refresh and try again.');
-    document.body.appendChild(script);
-  }, [isRegistering]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError('');
-
-    if (!paystackReady || !window.PaystackPop) {
-      setSubmitError('Payment system is still loading. Please wait a moment and try again.');
-      return;
-    }
+    setSubmitting(true);
 
     // Check for duplicate registration
     const { data: existing } = await supabase
@@ -86,46 +62,53 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
     if (existing) {
       setSubmitError('This email is already registered for this program.');
+      setSubmitting(false);
       return;
     }
 
-    const amountInPesewas = Math.round(parseFloat(price || '0') * 100);
-    const ref = `DB-${Date.now()}`;
+    // Generate unique 12-digit transaction ID
+    const transId = Date.now().toString();
 
-    const popup = new window.PaystackPop();
-    popup.newTransaction({
-      key: 'pk_test_9893d8140e069d79372faa87c6f1933c8739abb1',
-      email: formData.email,
-      amount: amountInPesewas,
-      currency: 'GHS',
-      ref,
-      firstname: formData.full_name,
-      onSuccess: async (transaction: { reference: string }) => {
-        setSubmitting(true);
-        const { error } = await supabase.from('registrations').insert({
-          ...formData,
-          program: title,
-          amount_paid: parseFloat(price || '0'),
-          payment_status: 'success',
-          payment_reference: transaction.reference,
-        });
-        setSubmitting(false);
-        if (!error) {
-          setSubmitSuccess(true);
-          sendRegistrationEmail({
-            to_name: formData.full_name,
-            to_email: formData.email,
-            program_name: title,
-            amount: price || '0',
-          });
-        } else {
-          setSubmitError('Payment received but registration failed. Please contact support.');
-        }
-      },
-      onCancel: () => {
-        setSubmitError('Payment was not completed. Please try again.');
-      },
-    });
+    // Save pending registration so the callback page can complete it
+    localStorage.setItem(PENDING_KEY, JSON.stringify({
+      transId,
+      formData,
+      program: title,
+      price: price || '0',
+    }));
+
+    // Remove any previous TheTeller DOM elements
+    document.getElementById('ttlr-anchor')?.remove();
+    document.getElementById('ttlr-script')?.remove();
+
+    // Create the payment anchor with data attributes
+    const anchor = document.createElement('a');
+    anchor.id = 'ttlr-anchor';
+    anchor.className = 'ttlr_inline';
+    anchor.setAttribute('data-APIKey', THETELLER_API_KEY);
+    anchor.setAttribute('data-transid', transId);
+    anchor.setAttribute('data-amount', String(parseFloat(price || '0')));
+    anchor.setAttribute('data-customer_email', formData.email);
+    anchor.setAttribute('data-currency', 'GHS');
+    anchor.setAttribute('data-redirect_url', `${window.location.origin}/payment-callback`);
+    anchor.setAttribute('data-pay_button_text', `Pay GHS ${price}`);
+    anchor.style.display = 'none';
+    document.body.appendChild(anchor);
+
+    // Load TheTeller inline script — it initialises and clicks the anchor
+    const script = document.createElement('script');
+    script.id = 'ttlr-script';
+    script.src = 'https://checkout-test.theteller.net/resource/api/inline/theteller_inline.js';
+    script.onload = () => {
+      setSubmitting(false);
+      anchor.click();
+    };
+    script.onerror = () => {
+      setSubmitting(false);
+      setSubmitError('Payment system failed to load. Please refresh and try again.');
+      localStorage.removeItem(PENDING_KEY);
+    };
+    document.body.appendChild(script);
   };
 
   return (
@@ -135,14 +118,14 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
       <section className="program-detail-body">
         <div className="container">
           <div className="program-main-grid">
-            
+
             {/* Info Section / Registration Form */}
             <div className="program-info">
               {!isRegistering ? (
                 <>
                   <h2>Program Overview</h2>
                   <p className="description-text">{description}</p>
-                  
+
                   {contentNodes && <div className="custom-content">{contentNodes}</div>}
 
                   <div className="program-specs">
@@ -162,51 +145,44 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                     <p>Please fill in your details to secure your spot for the {title}.</p>
                   </div>
 
-                  {submitSuccess ? (
-                    <div className="success-message">
-                      <h3>You're registered!</h3>
-                      <p>Thank you, {formData.full_name}. Your spot for the {title} has been secured. Check your email for further details.</p>
+                  <form className="registration-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                      <label>Full Name</label>
+                      <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" required />
                     </div>
-                  ) : (
-                    <form className="registration-form" onSubmit={handleSubmit}>
-                      <div className="form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" required />
-                      </div>
-                      <div className="form-group">
-                        <label>Email Address</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com" required />
-                      </div>
-                      <div className="form-group">
-                        <label>Profession</label>
-                        <input type="text" name="profession" value={formData.profession} onChange={handleChange} placeholder="What is your current role?" required />
-                      </div>
-                      <div className="form-group">
-                        <label>Organization / School</label>
-                        <input type="text" name="organization" value={formData.organization} onChange={handleChange} placeholder="Where do you work/study?" required />
-                      </div>
+                    <div className="form-group">
+                      <label>Email Address</label>
+                      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com" required />
+                    </div>
+                    <div className="form-group">
+                      <label>Profession</label>
+                      <input type="text" name="profession" value={formData.profession} onChange={handleChange} placeholder="What is your current role?" required />
+                    </div>
+                    <div className="form-group">
+                      <label>Organization / School</label>
+                      <input type="text" name="organization" value={formData.organization} onChange={handleChange} placeholder="Where do you work/study?" required />
+                    </div>
 
-                      <div className="payment-integration-area">
-                        <div className="paystack-card-integrated">
-                          <div className="paystack-secure-badge">🔒 Secure Registration Payment</div>
-                          <div className="payment-details">
-                            <p className="payment-inscription">{paymentInscription || "Your payment supports our mission."}</p>
-                            <div className="final-price">
-                              Total: <span className="price-val">GHS {price}</span>
-                              {originalPrice && (
-                                <span className="form-discount-note"> — Discounted price (was GHS {originalPrice})</span>
-                              )}
-                            </div>
+                    <div className="payment-integration-area">
+                      <div className="paystack-card-integrated">
+                        <div className="paystack-secure-badge">🔒 Secure Registration Payment</div>
+                        <div className="payment-details">
+                          <p className="payment-inscription">{paymentInscription || "Your payment supports our mission."}</p>
+                          <div className="final-price">
+                            Total: <span className="price-val">GHS {price}</span>
+                            {originalPrice && (
+                              <span className="form-discount-note"> — Discounted price (was GHS {originalPrice})</span>
+                            )}
                           </div>
-                          {submitError && <p className="form-error">{submitError}</p>}
-                          <button className="pay-btn" type="submit" disabled={submitting || !paystackReady}>
-                            {!paystackReady ? 'Loading payment...' : submitting ? 'Saving...' : 'Complete Registration with Paystack'}
-                          </button>
-                          <p className="pay-disclaimer">Includes access link and digital resources.</p>
                         </div>
+                        {submitError && <p className="form-error">{submitError}</p>}
+                        <button className="pay-btn" type="submit" disabled={submitting}>
+                          {submitting ? 'Loading payment...' : 'Complete Registration'}
+                        </button>
+                        <p className="pay-disclaimer">Includes access link and digital resources.</p>
                       </div>
-                    </form>
-                  )}
+                    </div>
+                  </form>
                 </div>
               )}
             </div>
@@ -224,16 +200,16 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                       <span className="discount-badge">Early Bird Discount</span>
                     </div>
                   )}
-                  
+
                   {(ctaType === 'pay' || ctaType === 'register') && (
-                    <button 
+                    <button
                       className="primary-cta-btn"
                       onClick={() => setIsRegistering(true)}
                     >
                       {ctaText}
                     </button>
                   )}
-                  
+
                   {ctaType === 'link' && (
                     <Link to="/contact" className="primary-cta-btn">{ctaText}</Link>
                   )}
@@ -244,7 +220,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
                   <p className="cta-note">
                     {ctaNote !== undefined ? ctaNote : (
-                      ctaType === 'notify' 
+                      ctaType === 'notify'
                         ? "Applications are not yet open. Registration link will be sent to your email once live."
                         : "Secure your spot today. For group bookings, please contact us directly."
                     )}
