@@ -46,8 +46,10 @@ module.exports = async function handler(req, res) {
       const location = response.headers['location'];
 
       // TheTeller responds with 302 redirect — the Location header IS the checkout URL
+      // Strip erroneous www. from test domain (www.checkout-test.theteller.net doesn't resolve)
       if ((status === 301 || status === 302 || status === 307) && location) {
-        res.status(200).json({ checkout_url: location });
+        const cleanUrl = location.replace('www.checkout-test.theteller.net', 'checkout-test.theteller.net');
+        res.status(200).json({ checkout_url: cleanUrl });
         return resolve();
       }
 
