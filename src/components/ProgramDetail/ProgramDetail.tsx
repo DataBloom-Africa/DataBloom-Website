@@ -68,7 +68,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
     }));
 
     try {
-      const response = await fetch('/api/initiate-payment.cjs', {
+      const response = await fetch('/api/initiate-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
