@@ -10,14 +10,16 @@ module.exports = async function handler(req, res) {
 
   const { transId, email, amount, title, redirectUrl } = req.body;
 
-  const USERNAME    = 'databloom69f38d7a90a04';
-  // API key from dashboard is base64-encoded — decode it first before building Basic auth
+  const API_USER    = 'databloom69f38d7a90a04';
   const API_KEY_B64 = 'NDQ0YjQxYTEwOGJkYmQwNmVjN2JiNDdlMzkxY2ViNzM=';
   const API_KEY     = Buffer.from(API_KEY_B64, 'base64').toString('utf8');
   const MERCHANT_ID = 'TTM-00011701';
 
-  const credentials = Buffer.from(`${USERNAME}:${API_KEY}`).toString('base64');
-  const amountPesewas = String(Math.round(parseFloat(amount) * 100));
+  // Basic auth: base64(apiuser:apikey)
+  const credentials = Buffer.from(`${API_USER}:${API_KEY}`).toString('base64');
+
+  // Amount in pesewas as 12-digit zero-padded string e.g. "000000008700" for GHS 87
+  const amountPesewas = String(Math.round(parseFloat(amount) * 100)).padStart(12, '0');
 
   const bodyData = JSON.stringify({
     merchant_id: MERCHANT_ID,
@@ -27,12 +29,14 @@ module.exports = async function handler(req, res) {
     redirect_url: redirectUrl,
     email,
     currency: 'GHS',
+    API_Key: API_KEY,
+    apiuser: API_USER,
   });
 
   return new Promise((resolve) => {
     const options = {
-      hostname: 'test.theteller.net',
-      path: '/checkout/initiate',
+      hostname: 'checkout-test.theteller.net',
+      path: '/initiate',
       method: 'POST',
       headers: {
         'Authorization': `Basic ${credentials}`,
@@ -47,8 +51,7 @@ module.exports = async function handler(req, res) {
       const status = response.statusCode;
       const location = response.headers['location'];
 
-      // TheTeller responds with 302 redirect — the Location header IS the checkout URL
-      // Strip erroneous www. from test domain (www.checkout-test.theteller.net doesn't resolve)
+      // If TheTeller returns a redirect, the Location IS the checkout URL
       if ((status === 301 || status === 302 || status === 307) && location) {
         const cleanUrl = location.replace('www.checkout-test.theteller.net', 'checkout-test.theteller.net');
         res.status(200).json({ checkout_url: cleanUrl });
