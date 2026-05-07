@@ -1,3 +1,5 @@
+const https = require('https');
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -15,7 +17,7 @@ module.exports = async function handler(req, res) {
   const credentials = Buffer.from(`${USERNAME}:${API_KEY}`).toString('base64');
   const amountPesewas = String(Math.round(parseFloat(amount) * 100));
 
-  const payload = {
+  const bodyData = JSON.stringify({
     merchant_id: MERCHANT_ID,
     transaction_id: transId,
     desc: `Registration - ${title}`,
@@ -23,28 +25,48 @@ module.exports = async function handler(req, res) {
     redirect_url: redirectUrl,
     email,
     currency: 'GHS',
-  };
+  });
 
-  try {
-    // Node 18+ has fetch built-in; it follows redirects automatically
-    const response = await fetch('https://test.theteller.net/checkout/initiate', {
+  return new Promise((resolve) => {
+    const options = {
+      hostname: 'test.theteller.net',
+      path: '/checkout/initiate',
       method: 'POST',
-      redirect: 'follow',
       headers: {
         'Authorization': `Basic ${credentials}`,
         'Merchant-Id': MERCHANT_ID,
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
+        'Content-Length': Buffer.byteLength(bodyData),
       },
-      body: JSON.stringify(payload),
+    };
+
+    const req2 = https.request(options, (response) => {
+      const status = response.statusCode;
+      const location = response.headers['location'];
+
+      // TheTeller responds with 302 redirect — the Location header IS the checkout URL
+      if ((status === 301 || status === 302 || status === 307) && location) {
+        res.status(200).json({ checkout_url: location });
+        return resolve();
+      }
+
+      let raw = '';
+      response.on('data', chunk => { raw += chunk; });
+      response.on('end', () => {
+        let data;
+        try { data = JSON.parse(raw); } catch { data = { raw }; }
+        res.status(200).json({ httpStatus: status, ...data });
+        resolve();
+      });
     });
 
-    const raw = await response.text();
-    let data;
-    try { data = JSON.parse(raw); } catch { data = { raw }; }
+    req2.on('error', (err) => {
+      res.status(200).json({ error: 'fetch_failed', details: err.message });
+      resolve();
+    });
 
-    return res.status(200).json({ httpStatus: response.status, ...data });
-  } catch (err) {
-    return res.status(200).json({ error: 'fetch_failed', details: err.message, stack: err.stack });
-  }
+    req2.write(bodyData);
+    req2.end();
+  });
 };
