@@ -93,7 +93,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
 
     const popup = new window.PaystackPop();
     popup.newTransaction({
-      key: 'pk_test_9893d8140e069d79372faa87c6f1933c8739abb1',
+      key: 'pk_live_ff29e6e164d23a46207076209574b3b5a9ea1749',
       email: formData.email,
       amount: amountInPesewas,
       currency: 'GHS',
