@@ -11,9 +11,9 @@ module.exports = async function handler(req, res) {
   const { transId, email, amount, title, redirectUrl } = req.body;
 
   const API_USER    = 'databloom69f38d7a90a04';
-  const API_KEY_B64 = 'NDQ0YjQxYTEwOGJkYmQwNmVjN2JiNDdlMzkxY2ViNzM=';
-  const API_KEY     = Buffer.from(API_KEY_B64, 'base64').toString('utf8');
-  const MERCHANT_ID = 'TTM-00011701';
+  // Use API key exactly as shown in the dashboard (do not decode)
+  const API_KEY     = 'NDQ0YjQxYTEwOGJkYmQwNmVjN2JiNDdlMzkxY2ViNzM=';
+  const MERCHANT_ID = '00011701';
 
   // Basic auth: base64(apiuser:apikey)
   const credentials = Buffer.from(`${API_USER}:${API_KEY}`).toString('base64');
