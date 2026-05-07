@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PageHero } from '../PageHero';
 import { Link } from 'react-router-dom';
+import { supabase } from '../../lib/supabase';
+import { sendRegistrationEmail } from '../../lib/emailjs';
 import './ProgramDetail.css';
 
-const PENDING_KEY = 'theteller_pending';
+declare global {
+  interface Window {
+    PaystackPop: new () => {
+      newTransaction: (config: {
+        key: string; email: string; amount: number; currency: string;
+        ref: string; firstname: string;
+        onSuccess: (transaction: { reference: string }) => void;
+        onCancel: () => void;
+      }) => void;
+    };
+  }
+}
 
 interface ProgramDetailProps {
   title: string;
@@ -30,69 +43,88 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
   price,
   originalPrice,
   ctaNote,
+  paymentInscription,
   contentNodes
 }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({ full_name: '', email: '', profession: '', organization: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [paystackReady, setPaystackReady] = useState(false);
+
+  useEffect(() => {
+    if (!isRegistering) return;
+    if (window.PaystackPop) { setPaystackReady(true); return; }
+    const script = document.createElement('script');
+    script.src = 'https://js.paystack.co/v2/inline.js';
+    script.onload = () => setPaystackReady(true);
+    script.onerror = () => setSubmitError('Payment system failed to load. Please refresh and try again.');
+    document.body.appendChild(script);
+  }, [isRegistering]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handlePayClick = async () => {
-    const { full_name, email, profession, organization } = formData;
-
-    if (!full_name.trim() || !email.trim() || !profession.trim() || !organization.trim()) {
-      setSubmitError('Please fill in all fields before proceeding.');
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setSubmitError('Please enter a valid email address.');
-      return;
-    }
-
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setSubmitError('');
-    setSubmitting(true);
 
-    // 12-digit unique transaction ID (zero-padded)
-    const transId = Date.now().toString().slice(-12).padStart(12, '0');
-
-    // Save pending registration — /payment-callback will complete it
-    localStorage.setItem(PENDING_KEY, JSON.stringify({
-      transId,
-      formData,
-      program: title,
-      price: price || '0',
-    }));
-
-    try {
-      const response = await fetch('/api/initiate-payment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          transId,
-          email,
-          amount: price || '0',
-          title,
-          redirectUrl: `${window.location.origin}/payment-callback`,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.checkout_url) {
-        window.location.href = data.checkout_url;
-      } else {
-        // Show the exact TheTeller error so we can diagnose it
-        setSubmitError(`Payment error: ${data.reason || data.message || data.error || JSON.stringify(data)}`);
-        setSubmitting(false);
-      }
-    } catch (err) {
-      setSubmitError(`Payment error: ${String(err)}`);
-      setSubmitting(false);
+    if (!paystackReady || !window.PaystackPop) {
+      setSubmitError('Payment system is still loading. Please wait a moment and try again.');
+      return;
     }
+
+    const { data: existing } = await supabase
+      .from('registrations')
+      .select('id')
+      .eq('email', formData.email)
+      .eq('program', title)
+      .maybeSingle();
+
+    if (existing) {
+      setSubmitError('This email is already registered for this program.');
+      return;
+    }
+
+    const amountInPesewas = Math.round(parseFloat(price || '0') * 100);
+    const ref = `DB-${Date.now()}`;
+
+    const popup = new window.PaystackPop();
+    popup.newTransaction({
+      key: 'pk_live_REPLACE_WITH_LIVE_KEY',
+      email: formData.email,
+      amount: amountInPesewas,
+      currency: 'GHS',
+      ref,
+      firstname: formData.full_name,
+      onSuccess: async (transaction: { reference: string }) => {
+        setSubmitting(true);
+        const { error } = await supabase.from('registrations').insert({
+          ...formData,
+          program: title,
+          amount_paid: parseFloat(price || '0'),
+          payment_status: 'success',
+          payment_reference: transaction.reference,
+        });
+        if (!error) {
+          await sendRegistrationEmail({
+            to_name: formData.full_name,
+            to_email: formData.email,
+            program_name: title,
+            amount: price || '0',
+          });
+          setSubmitSuccess(true);
+        } else {
+          setSubmitError('Payment received but registration failed. Please contact support.');
+        }
+        setSubmitting(false);
+      },
+      onCancel: () => {
+        setSubmitError('Payment was not completed. Please try again.');
+      },
+    });
   };
 
   return (
@@ -121,55 +153,60 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
               ) : (
                 <div className="registration-wrapper">
                   <div className="registration-header">
-                    <button className="back-btn" onClick={() => { setIsRegistering(false); setSubmitError(''); }}>← Back to Info</button>
+                    <button className="back-btn" onClick={() => setIsRegistering(false)}>← Back to Info</button>
                     <h2>Event Registration</h2>
                     <p>Please fill in your details to secure your spot for the {title}.</p>
                   </div>
 
-                  <div className="registration-form">
-                    <div className="form-group">
-                      <label>Full Name</label>
-                      <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" />
+                  {submitSuccess ? (
+                    <div className="success-message">
+                      <h3>You're registered!</h3>
+                      <p>Thank you, {formData.full_name}. Your spot for the {title} has been secured. Check your email for further details.</p>
                     </div>
-                    <div className="form-group">
-                      <label>Email Address</label>
-                      <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com" />
-                    </div>
-                    <div className="form-group">
-                      <label>Profession</label>
-                      <input type="text" name="profession" value={formData.profession} onChange={handleChange} placeholder="What is your current role?" />
-                    </div>
-                    <div className="form-group">
-                      <label>Organization / School</label>
-                      <input type="text" name="organization" value={formData.organization} onChange={handleChange} placeholder="Where do you work/study?" />
-                    </div>
-
-                    <div className="payment-integration-area">
-                      <div className="paystack-card-integrated">
-                        <div className="final-price">
-                          Total: <span className="price-val">GHS {price}</span>
-                          {originalPrice && (
-                            <span className="form-discount-note"> — Discounted (was GHS {originalPrice})</span>
-                          )}
-                        </div>
-                        {submitError && <p className="form-error">{submitError}</p>}
-                        <button
-                          className="pay-btn"
-                          type="button"
-                          onClick={handlePayClick}
-                          disabled={submitting}
-                        >
-                          {submitting ? 'Opening payment...' : 'Complete Registration'}
-                        </button>
-                        <p className="pay-disclaimer">Includes access link and digital resources.</p>
+                  ) : (
+                    <form className="registration-form" onSubmit={handleSubmit}>
+                      <div className="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" required />
                       </div>
-                    </div>
-                  </div>
+                      <div className="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Profession</label>
+                        <input type="text" name="profession" value={formData.profession} onChange={handleChange} placeholder="What is your current role?" required />
+                      </div>
+                      <div className="form-group">
+                        <label>Organization / School</label>
+                        <input type="text" name="organization" value={formData.organization} onChange={handleChange} placeholder="Where do you work/study?" required />
+                      </div>
+
+                      <div className="payment-integration-area">
+                        <div className="paystack-card-integrated">
+                          <div className="paystack-secure-badge">🔒 Secure Registration Payment</div>
+                          <div className="payment-details">
+                            <p className="payment-inscription">{paymentInscription || "Your payment supports our mission."}</p>
+                            <div className="final-price">
+                              Total: <span className="price-val">GHS {price}</span>
+                              {originalPrice && (
+                                <span className="form-discount-note"> — Discounted price (was GHS {originalPrice})</span>
+                              )}
+                            </div>
+                          </div>
+                          {submitError && <p className="form-error">{submitError}</p>}
+                          <button className="pay-btn" type="submit" disabled={submitting || !paystackReady}>
+                            {!paystackReady ? 'Loading payment...' : submitting ? 'Saving...' : 'Complete Registration'}
+                          </button>
+                          <p className="pay-disclaimer">Includes access link and digital resources.</p>
+                        </div>
+                      </div>
+                    </form>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* CTA Sidebar */}
             {!isRegistering && (
               <div className="program-sidebar">
                 <div className="cta-card">

@@ -20,7 +20,6 @@ const HighSchoolClub = lazy(() => import('./pages/HighSchoolClub').then(m => ({ 
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
 const TermsConditions = lazy(() => import('./pages/TermsConditions').then(m => ({ default: m.TermsConditions })));
 const RefundPolicy = lazy(() => import('./pages/RefundPolicy').then(m => ({ default: m.RefundPolicy })));
-const PaymentCallback = lazy(() => import('./pages/PaymentCallback').then(m => ({ default: m.PaymentCallback })));
 
 // Helper component to scroll to top on route change
 const ScrollToTop = () => {
@@ -59,9 +58,6 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/refund-policy" element={<RefundPolicy />} />
-
-            {/* Payment Callback */}
-            <Route path="/payment-callback" element={<PaymentCallback />} />
 
             {/* Program Routes */}
             <Route path="/programs/future-code" element={<FutureCode />} />

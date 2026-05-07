@@ -17,6 +17,8 @@ export const IntelligentBusiness: React.FC = () => {
       ctaType="pay"
       ctaText="Register Now"
       price="87"
+      originalPrice="200"
+      paymentInscription="Your payment will be used to help High school and college Students in Data Training"
       contentNodes={
         <>
           <h3>What you will learn:</h3>
