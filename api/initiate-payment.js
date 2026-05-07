@@ -8,18 +8,27 @@ export default async function handler(req, res) {
 
   const { transId, email, amount, title, redirectUrl } = req.body;
 
-  if (!transId || !email || !amount || !redirectUrl) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
-
   const USERNAME    = 'databloom69f38d7a90a04';
   const API_KEY     = 'NDQ0YjQxYTEwOGJkYmQwNmVjN2JiNDdlMzkxY2ViNzM=';
   const MERCHANT_ID = 'TTM-00011701';
   const ENDPOINT    = 'https://test.theteller.net/checkout/initiate';
 
   const credentials = Buffer.from(`${USERNAME}:${API_KEY}`).toString('base64');
-  // TheTeller expects amount in pesewas (GHS × 100), zero-padded to 12 digits
-  const amountPesewas = String(Math.round(parseFloat(amount) * 100)).padStart(12, '0');
+  // Amount in pesewas as plain integer string e.g. "8700" for GHS 87
+  const amountPesewas = String(Math.round(parseFloat(amount) * 100));
+
+  const body = {
+    merchant_id: MERCHANT_ID,
+    transaction_id: transId,
+    desc: `Registration - ${title}`,
+    amount: amountPesewas,
+    redirect_url: redirectUrl,
+    email,
+    currency: 'GHS',
+  };
+
+  let rawText = '';
+  let httpStatus = 0;
 
   try {
     const response = await fetch(ENDPOINT, {
@@ -30,20 +39,22 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
       },
-      body: JSON.stringify({
-        merchant_id: MERCHANT_ID,
-        transaction_id: transId,
-        desc: `Registration - ${title}`,
-        amount: amountPesewas,
-        redirect_url: redirectUrl,
-        email,
-        currency: 'GHS',
-      }),
+      body: JSON.stringify(body),
     });
 
-    const data = await response.json();
-    return res.status(200).json(data);
+    httpStatus = response.status;
+    rawText = await response.text();
+
+    let data;
+    try { data = JSON.parse(rawText); } catch { data = { raw: rawText }; }
+
+    return res.status(200).json({ httpStatus, ...data });
   } catch (err) {
-    return res.status(500).json({ error: 'Failed to reach payment provider', details: String(err) });
+    return res.status(200).json({
+      error: 'fetch_failed',
+      details: String(err),
+      httpStatus,
+      rawText,
+    });
   }
 }
