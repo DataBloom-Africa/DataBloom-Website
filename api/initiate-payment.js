@@ -1,5 +1,26 @@
 const https = require('https');
 
+function makeRequest(hostname, path, options, bodyData) {
+  return new Promise((resolve, reject) => {
+    const reqOptions = { ...options, hostname, path };
+    const req = https.request(reqOptions, (res) => {
+      // Follow redirects
+      if ((res.statusCode === 301 || res.statusCode === 302 || res.statusCode === 307) && res.headers.location) {
+        const loc = res.headers.location;
+        const newUrl = new URL(loc.startsWith('http') ? loc : `https://${hostname}${loc}`);
+        return makeRequest(newUrl.hostname, newUrl.pathname + newUrl.search, options, bodyData)
+          .then(resolve).catch(reject);
+      }
+      let raw = '';
+      res.on('data', chunk => { raw += chunk; });
+      res.on('end', () => resolve({ status: res.statusCode, raw }));
+    });
+    req.on('error', reject);
+    req.write(bodyData);
+    req.end();
+  });
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -27,37 +48,28 @@ module.exports = async function handler(req, res) {
     currency: 'GHS',
   });
 
-  return new Promise((resolve) => {
-    const options = {
-      hostname: 'test.theteller.net',
-      path: '/checkout/initiate',
-      method: 'POST',
-      headers: {
-        'Authorization': `Basic ${credentials}`,
-        'Merchant-Id': MERCHANT_ID,
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-cache',
-        'Content-Length': Buffer.byteLength(bodyData),
-      },
-    };
+  const reqOptions = {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Merchant-Id': MERCHANT_ID,
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Content-Length': Buffer.byteLength(bodyData),
+    },
+  };
 
-    const httpreq = https.request(options, (httpres) => {
-      let raw = '';
-      httpres.on('data', chunk => { raw += chunk; });
-      httpres.on('end', () => {
-        let data;
-        try { data = JSON.parse(raw); } catch { data = { raw }; }
-        res.status(200).json({ httpStatus: httpres.statusCode, ...data });
-        resolve();
-      });
-    });
-
-    httpreq.on('error', (err) => {
-      res.status(200).json({ error: 'fetch_failed', details: err.message });
-      resolve();
-    });
-
-    httpreq.write(bodyData);
-    httpreq.end();
-  });
+  try {
+    const { status, raw } = await makeRequest(
+      'test.theteller.net',
+      '/checkout/initiate',
+      reqOptions,
+      bodyData
+    );
+    let data;
+    try { data = JSON.parse(raw); } catch { data = { raw }; }
+    return res.status(200).json({ httpStatus: status, ...data });
+  } catch (err) {
+    return res.status(200).json({ error: 'fetch_failed', details: err.message });
+  }
 };
