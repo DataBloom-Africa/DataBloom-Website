@@ -592,10 +592,15 @@
   // ─────────────────────────────────────────────────────────
   //  Supabase client
   // ─────────────────────────────────────────────────────────
-  const supabase = window.supabase.createClient(
-    'https://ogjpqfchvmckefklbhvx.supabase.co',
-    'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
-  );
+  let supabase = null;
+  try {
+    supabase = window.supabase.createClient(
+      'https://ogjpqfchvmckefklbhvx.supabase.co',
+      'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
+    );
+  } catch (e) {
+    console.error('Supabase init failed:', e.message);
+  }
 
   // ─────────────────────────────────────────────────────────
   //  SALE CONFIG — Update these values for each transaction
@@ -608,8 +613,8 @@
     dimensions:        '36\u2033 \u00d7 48\u2033',
     year:              '2024',
     curatorialNote:    'A meditation on identity and belonging, Yayira draws from Ewe cultural memory to explore the tension between rootedness and displacement. Osei\u2019s layered brushwork invites the viewer into a space of quiet introspection and ancestral resonance.',
-    price:             1,           // In USD (whole number) — set to 1 for testing
-    currency:          'USD',
+    price:             1,           // In GHS (whole number) — set to 1 for testing
+    currency:          'GHS',
     artworkImageUrl:   '',          // Paste image URL here, or leave empty for placeholder
     contactEmail:      'henry@artafrica.gallery',
     instagram:         '@artafrica',
@@ -643,7 +648,7 @@
     document.getElementById('metaYear').textContent        = SALE_CONFIG.year;
     document.getElementById('artworkNote').textContent     = SALE_CONFIG.curatorialNote;
 
-    const formatted = new Intl.NumberFormat('en-US', {
+    const formatted = new Intl.NumberFormat('en-GH', {
       style: 'currency', currency: SALE_CONFIG.currency, minimumFractionDigits: 0
     }).format(SALE_CONFIG.price);
     document.getElementById('artworkPrice').textContent    = formatted;
@@ -675,6 +680,7 @@
     payBtn.disabled = true;
     payBtn.textContent = 'Opening secure payment\u2026';
 
+    try {
     const popup = new PaystackPop();
     popup.newTransaction({
       key:      SALE_CONFIG.paystackPublicKey,
@@ -709,6 +715,12 @@
         showCancel();
       }
     });
+    } catch (e) {
+      console.error('Paystack error:', e.message);
+      alert('Payment could not open: ' + e.message);
+      payBtn.disabled = false;
+      payBtn.textContent = 'Complete Purchase';
+    }
   });
 
   async function savePurchase(data) {
