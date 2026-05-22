@@ -695,8 +695,8 @@
             { display_name: 'Buyer Name', variable_name: 'buyer_name', value: name                     },
           ]
         },
-        callback: async function(response) {
-          await savePurchase({
+        callback: function(response) {
+          savePurchase({
             buyer_name:         name,
             buyer_email:        email,
             buyer_phone:        document.getElementById('buyerPhone').value.trim() || null,
