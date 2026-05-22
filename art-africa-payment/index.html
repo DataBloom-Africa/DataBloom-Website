@@ -613,8 +613,8 @@
     dimensions:        '4 \u00d7 4 ft',
     year:              '2023',
     curatorialNote:    'A commanding figure rooted in village soil yet adorned in the regalia of play, this work explores the duality of identity — the child who carries ancestral tradition while claiming the arena as his own. Bold, fragmented form meets vivid cultural symbolism in a landscape that breathes memory.',
-    price:             2,           // In GHS (whole number) — set to 2 for testing
-    currency:          'GHS',
+    price:             1,           // In USD — testing with international transactions
+    currency:          'USD',
     artworkImageUrl:   'Painting.jpeg',
     contactEmail:      'henry@artafrica.gallery',
     instagram:         '@artafrica',
@@ -647,7 +647,7 @@
     document.getElementById('metaYear').textContent       = SALE_CONFIG.year;
     document.getElementById('artworkNote').textContent    = SALE_CONFIG.curatorialNote;
 
-    var formatted = new Intl.NumberFormat('en-GH', {
+    var formatted = new Intl.NumberFormat('en-US', {
       style: 'currency', currency: SALE_CONFIG.currency, minimumFractionDigits: 0
     }).format(SALE_CONFIG.price);
     document.getElementById('artworkPrice').textContent = formatted;
