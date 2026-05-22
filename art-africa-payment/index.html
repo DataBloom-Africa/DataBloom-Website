@@ -144,7 +144,6 @@
     /* Image area */
     .artwork-image-wrap {
       width: 100%;
-      aspect-ratio: 4 / 3;
       overflow: hidden;
       background: #1a1a1a;
       position: relative;
@@ -153,8 +152,10 @@
     .artwork-image-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center top;
       display: block;
+      background: #1a1a1a;
     }
 
     .artwork-placeholder {
@@ -609,12 +610,12 @@
   // ─────────────────────────────────────────────────────────
   const SALE_CONFIG = {
     paystackPublicKey: 'pk_live_ff29e6e164d23a46207076209574b3b5a9ea1749',
-    artworkTitle:      'Yayira',
-    artistName:        'Simon Osei',
-    medium:            'Oil on Canvas',
-    dimensions:        '36\u2033 \u00d7 48\u2033',
-    year:              '2024',
-    curatorialNote:    'A meditation on identity and belonging, Yayira draws from Ewe cultural memory to explore the tension between rootedness and displacement. Osei\u2019s layered brushwork invites the viewer into a space of quiet introspection and ancestral resonance.',
+    artworkTitle:      'Son of the Village, Child of the Game',
+    artistName:        'Kwabena Asesa',
+    medium:            'Acrylic on Canvas',
+    dimensions:        '4 \u00d7 4 ft',
+    year:              '2023',
+    curatorialNote:    'A commanding figure rooted in village soil yet adorned in the regalia of play, this work explores the duality of identity — the child who carries ancestral tradition while claiming the arena as his own. Bold, fragmented form meets vivid cultural symbolism in a landscape that breathes memory.',
     price:             2,           // In GHS (whole number) — set to 2 for testing
     currency:          'GHS',
     artworkImageUrl:   'Painting.PNG',
