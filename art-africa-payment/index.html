@@ -592,10 +592,10 @@
   // ─────────────────────────────────────────────────────────
   //  Supabase — init after DOM ready
   // ─────────────────────────────────────────────────────────
-  let supabase = null;
+  var supabaseClient = null;
   window.addEventListener('load', function () {
     try {
-      supabase = window.supabase.createClient(
+      supabaseClient = window.supabase.createClient(
         'https://ogjpqfchvmckefklbhvx.supabase.co',
         'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
       );
@@ -725,8 +725,9 @@
   }
 
   async function savePurchase(data) {
-    const { error } = await supabase.from('purchases').insert([data]);
-    if (error) console.error('Supabase insert error:', error.message);
+    if (!supabaseClient) return;
+    var result = await supabaseClient.from('purchases').insert([data]);
+    if (result.error) console.error('Supabase insert error:', result.error.message);
   }
 
   function showConfirmation(email, ref) {
