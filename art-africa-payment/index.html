@@ -615,8 +615,8 @@
     dimensions:        '36\u2033 \u00d7 48\u2033',
     year:              '2024',
     curatorialNote:    'A meditation on identity and belonging, Yayira draws from Ewe cultural memory to explore the tension between rootedness and displacement. Osei\u2019s layered brushwork invites the viewer into a space of quiet introspection and ancestral resonance.',
-    price:             2,           // In USD (whole number) — set to 2 for testing
-    currency:          'USD',
+    price:             2,           // In GHS (whole number) — set to 2 for testing
+    currency:          'GHS',
     artworkImageUrl:   '',          // Paste image URL here, or leave empty for placeholder
     contactEmail:      'henry@artafrica.gallery',
     instagram:         '@artafrica',
@@ -649,7 +649,7 @@
     document.getElementById('metaYear').textContent       = SALE_CONFIG.year;
     document.getElementById('artworkNote').textContent    = SALE_CONFIG.curatorialNote;
 
-    var formatted = new Intl.NumberFormat('en-US', {
+    var formatted = new Intl.NumberFormat('en-GH', {
       style: 'currency', currency: SALE_CONFIG.currency, minimumFractionDigits: 0
     }).format(SALE_CONFIG.price);
     document.getElementById('artworkPrice').textContent = formatted;
