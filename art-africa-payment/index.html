@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
-  <script src="https://js.paystack.co/v2/inline.js"></script>
+  <script src="https://js.paystack.co/v1/inline.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
   <style>
@@ -681,43 +681,43 @@
     payBtn.textContent = 'Opening secure payment\u2026';
 
     try {
-    const popup = new PaystackPop();
-    popup.newTransaction({
-      key:      SALE_CONFIG.paystackPublicKey,
-      email:    email,
-      amount:   SALE_CONFIG.price * 100,
-      currency: SALE_CONFIG.currency,
-      ref:      'ARTAFRICA-' + Date.now(),
-      metadata: {
-        custom_fields: [
-          { display_name: 'Artwork',    variable_name: 'artwork',    value: SALE_CONFIG.artworkTitle },
-          { display_name: 'Artist',     variable_name: 'artist',     value: SALE_CONFIG.artistName   },
-          { display_name: 'Buyer Name', variable_name: 'buyer_name', value: name                     },
-        ]
-      },
-      onSuccess: async function(transaction) {
-        await savePurchase({
-          buyer_name:           name,
-          buyer_email:          email,
-          buyer_phone:          document.getElementById('buyerPhone').value.trim() || null,
-          artwork_title:        SALE_CONFIG.artworkTitle,
-          artist_name:          SALE_CONFIG.artistName,
-          amount:               SALE_CONFIG.price,
-          currency:             SALE_CONFIG.currency,
-          paystack_reference:   transaction.reference,
-          status:               'completed',
-        });
-        showConfirmation(email, transaction.reference);
-      },
-      onCancel: function() {
-        payBtn.disabled = false;
-        payBtn.textContent = 'Complete Purchase';
-        showCancel();
-      }
-    });
+      const handler = PaystackPop.setup({
+        key:      SALE_CONFIG.paystackPublicKey,
+        email:    email,
+        amount:   SALE_CONFIG.price * 100,
+        currency: SALE_CONFIG.currency,
+        ref:      'ARTAFRICA-' + Date.now(),
+        metadata: {
+          custom_fields: [
+            { display_name: 'Artwork',    variable_name: 'artwork',    value: SALE_CONFIG.artworkTitle },
+            { display_name: 'Artist',     variable_name: 'artist',     value: SALE_CONFIG.artistName   },
+            { display_name: 'Buyer Name', variable_name: 'buyer_name', value: name                     },
+          ]
+        },
+        callback: async function(response) {
+          await savePurchase({
+            buyer_name:           name,
+            buyer_email:          email,
+            buyer_phone:          document.getElementById('buyerPhone').value.trim() || null,
+            artwork_title:        SALE_CONFIG.artworkTitle,
+            artist_name:          SALE_CONFIG.artistName,
+            amount:               SALE_CONFIG.price,
+            currency:             SALE_CONFIG.currency,
+            paystack_reference:   response.reference,
+            status:               'completed',
+          });
+          showConfirmation(email, response.reference);
+        },
+        onClose: function() {
+          payBtn.disabled = false;
+          payBtn.textContent = 'Complete Purchase';
+          showCancel();
+        }
+      });
+      handler.openIframe();
     } catch (e) {
       console.error('Paystack error:', e.message);
-      alert('Payment could not open: ' + e.message);
+      alert('Payment error: ' + e.message);
       payBtn.disabled = false;
       payBtn.textContent = 'Complete Purchase';
     }
