@@ -625,10 +625,9 @@
   // ─────────────────────────────────────────────────────────
   //  Populate page content from config
   // ─────────────────────────────────────────────────────────
-  (function populatePage() {
-    document.title = `Art Africa \u2014 ${SALE_CONFIG.artworkTitle}`;
+  try {
+    document.title = 'Art Africa \u2014 ' + SALE_CONFIG.artworkTitle;
 
-    // Artwork image or placeholder
     const wrap = document.getElementById('artworkImageWrap');
     if (SALE_CONFIG.artworkImageUrl) {
       const img = document.createElement('img');
@@ -636,31 +635,35 @@
       img.alt = SALE_CONFIG.artworkTitle;
       wrap.appendChild(img);
     } else {
-      wrap.innerHTML = `
-        <div class="artwork-placeholder">
-          <span class="placeholder-title">${SALE_CONFIG.artworkTitle}</span>
-          <span class="placeholder-sub">${SALE_CONFIG.artistName} &nbsp;\u00b7\u00a0 ${SALE_CONFIG.year}</span>
-        </div>`;
+      wrap.innerHTML =
+        '<div class="artwork-placeholder">' +
+        '<span class="placeholder-title">' + SALE_CONFIG.artworkTitle + '</span>' +
+        '<span class="placeholder-sub">' + SALE_CONFIG.artistName + ' \u00b7 ' + SALE_CONFIG.year + '</span>' +
+        '</div>';
     }
 
-    document.getElementById('artworkTitle').textContent    = SALE_CONFIG.artworkTitle;
-    document.getElementById('artworkArtist').textContent   = SALE_CONFIG.artistName;
-    document.getElementById('metaMedium').textContent      = SALE_CONFIG.medium;
-    document.getElementById('metaDimensions').textContent  = SALE_CONFIG.dimensions;
-    document.getElementById('metaYear').textContent        = SALE_CONFIG.year;
-    document.getElementById('artworkNote').textContent     = SALE_CONFIG.curatorialNote;
+    document.getElementById('artworkTitle').textContent   = SALE_CONFIG.artworkTitle;
+    document.getElementById('artworkArtist').textContent  = SALE_CONFIG.artistName;
+    document.getElementById('metaMedium').textContent     = SALE_CONFIG.medium;
+    document.getElementById('metaDimensions').textContent = SALE_CONFIG.dimensions;
+    document.getElementById('metaYear').textContent       = SALE_CONFIG.year;
+    document.getElementById('artworkNote').textContent    = SALE_CONFIG.curatorialNote;
 
-    const formatted = new Intl.NumberFormat('en-GH', {
+    var formatted = new Intl.NumberFormat('en-GH', {
       style: 'currency', currency: SALE_CONFIG.currency, minimumFractionDigits: 0
     }).format(SALE_CONFIG.price);
-    document.getElementById('artworkPrice').textContent    = formatted;
+    document.getElementById('artworkPrice').textContent = formatted;
 
-    // Footer
-    const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-    emailLinks.forEach(el => { el.href = `mailto:${SALE_CONFIG.contactEmail}`; el.textContent = SALE_CONFIG.contactEmail; });
-    const igLinks = document.querySelectorAll('a[href*="instagram"]');
-    igLinks.forEach(el => { el.textContent = SALE_CONFIG.instagram; });
-  })();
+    document.querySelectorAll('a[href^="mailto:"]').forEach(function(el) {
+      el.href = 'mailto:' + SALE_CONFIG.contactEmail;
+      el.textContent = SALE_CONFIG.contactEmail;
+    });
+    document.querySelectorAll('a[href*="instagram"]').forEach(function(el) {
+      el.textContent = SALE_CONFIG.instagram;
+    });
+  } catch(e) {
+    console.error('Page populate error:', e.message);
+  }
 
   // ─────────────────────────────────────────────────────────
   //  Payment handler — called directly by button onclick
@@ -727,7 +730,7 @@
   }
 
   function showConfirmation(email, ref) {
-    form.style.display = 'none';
+    document.getElementById('paymentForm').style.display = 'none';
     document.getElementById('msgCancel').classList.remove('visible');
     document.getElementById('receiptEmail').textContent = email;
     document.getElementById('refCode').textContent      = 'Reference: ' + ref;
