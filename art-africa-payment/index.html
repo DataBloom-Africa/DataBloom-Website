@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art Africa — Acquire a Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <script src="https://js.paystack.co/v2/inline.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0A0A0A;
+      --surface:   #141414;
+      --text:      #F5F0E8;
+      --gold:      #C9A96E;
+      --gold-deep: #B8924A;
+      --muted:     #7A7A7A;
+      --border:    #2A2A2A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Page Fade-in ─────────────────────────────────────── */
+    .page-wrapper {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.9s ease forwards;
+      animation-delay: 0.1s;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── Layout ───────────────────────────────────────────── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    hr.rule {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ─── Section A — Hero ─────────────────────────────────── */
+    .hero {
+      padding: 60px 0 48px;
+      text-align: center;
+    }
+
+    .hero .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 300;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      display: block;
+    }
+
+    .hero .tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* ─── Section B — Curator Authority ───────────────────── */
+    .curator {
+      padding: 72px 0;
+    }
+
+    .curator .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .curator-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 400;
+      color: var(--text);
+      display: inline;
+      position: relative;
+      cursor: default;
+    }
+
+    .curator-name::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.4s ease;
+    }
+
+    .curator-name:hover::after { width: 100%; }
+
+    .curator p {
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.85;
+      margin-top: 16px;
+    }
+
+    /* ─── Section C — Artwork Feature Card ────────────────── */
+    .artwork-section { padding: 72px 0; }
+
+    .artwork-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    /* Image area */
+    .artwork-image-wrap {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #1a1a1a;
+      position: relative;
+    }
+
+    .artwork-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .artwork-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .artwork-placeholder .placeholder-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text);
+      opacity: 0.6;
+    }
+
+    .artwork-placeholder .placeholder-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Artwork meta */
+    .artwork-body { padding: 36px; }
+
+    .artwork-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .artwork-artist {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+
+    .artwork-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 24px;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .meta-item .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .meta-item .meta-value {
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .artwork-note {
+      font-size: 0.9rem;
+      line-height: 1.85;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .artwork-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .price-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .price-value {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Section D — Payment Form ─────────────────────────── */
+    .payment-section { padding: 72px 0; }
+
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .section-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"] {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus {
+      border-color: var(--gold);
+    }
+
+    input[readonly] {
+      color: var(--gold);
+      cursor: default;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.88rem;
+    }
+
+    input::placeholder { color: #3a3a3a; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      margin-top: 36px;
+      padding: 18px 24px;
+      background: var(--gold);
+      color: var(--bg);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-pay:hover {
+      background: var(--gold-deep);
+      transform: scale(1.01);
+    }
+
+    .btn-pay:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ─── Confirmation / Cancel Messages ───────────────────── */
+    .message-box {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 48px 36px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .message-box.visible { display: block; }
+
+    .message-box .msg-icon {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .message-box .msg-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .message-box .msg-body {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .message-box .ref-code {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gold);
+      margin-top: 16px;
+      letter-spacing: 0.1em;
+    }
+
+    .message-cancel .msg-heading { font-style: normal; font-weight: 300; }
+
+    /* ─── Section E — Footer ───────────────────────────────── */
+    footer {
+      padding: 48px 0 64px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--text);
+    }
+
+    .footer-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .footer-line a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-line a:hover { color: var(--gold); }
+
+    /* ─── Responsive ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .artwork-meta { grid-template-columns: 1fr; gap: 12px; }
+      .artwork-body { padding: 28px 24px; }
+      .artwork-price-row { flex-direction: column; gap: 6px; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page-wrapper">
+
+  <!-- ─── Section A: Hero ─────────────────────────────────── -->
+  <header>
+    <div class="container">
+      <div class="hero">
+        <span class="wordmark">Art Africa</span>
+        <span class="tagline">Curating African Excellence</span>
+      </div>
+    </div>
+    <hr class="rule" />
+  </header>
+
+  <!-- ─── Section B: Curator Authority ───────────────────── -->
+  <section class="curator">
+    <div class="container">
+      <p class="label">The Curator</p>
+      <p>
+        <span class="curator-name">Henry Kweku Duah</span>
+        is one of Accra's foremost art curators and the Managing Partner of Art Africa —
+        a contemporary gallery at the intersection of African storytelling, cultural
+        preservation, and global collector engagement. His work places African artists
+        on the world stage, one considered acquisition at a time.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── Section C: Artwork Feature Card ────────────────── -->
+  <section class="artwork-section">
+    <div class="container">
+
+      <div class="artwork-card">
+        <!-- Image -->
+        <div class="artwork-image-wrap" id="artworkImageWrap">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Meta -->
+        <div class="artwork-body">
+          <h1 class="artwork-title" id="artworkTitle"></h1>
+          <p class="artwork-artist" id="artworkArtist"></p>
+
+          <div class="artwork-meta">
+            <div class="meta-item">
+              <span class="meta-label">Medium</span>
+              <span class="meta-value" id="metaMedium"></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Dimensions</span>
+              <span class="meta-value" id="metaDimensions"></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Year</span>
+              <span class="meta-value" id="metaYear"></span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Origin</span>
+              <span class="meta-value">Ghana</span>
+            </div>
+          </div>
+
+          <p class="artwork-note" id="artworkNote"></p>
+
+          <div class="artwork-price-row">
+            <span class="price-label">Acquisition Price</span>
+            <span class="price-value" id="artworkPrice"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Section D: Payment Form ─────────────────────────── -->
+  <section class="payment-section">
+    <div class="container">
+
+      <h2 class="section-heading">Complete Your Acquisition</h2>
+      <p class="section-sub">Secure payment via Paystack</p>
+
+      <form id="paymentForm" novalidate>
+        <div class="form-group">
+          <label for="buyerName">Full Name</label>
+          <input type="text" id="buyerName" name="buyerName" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="buyerEmail">Email Address</label>
+          <input type="email" id="buyerEmail" name="buyerEmail" placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="buyerPhone">Phone Number <span style="color:var(--muted);font-size:0.55rem;">(Optional)</span></label>
+          <input type="tel" id="buyerPhone" name="buyerPhone" placeholder="+233 xx xxx xxxx" />
+        </div>
+
+        <button type="submit" class="btn-pay" id="payBtn">Complete Purchase</button>
+      </form>
+
+      <!-- Confirmation message -->
+      <div class="message-box" id="msgSuccess">
+        <span class="msg-icon">Acquisition Confirmed</span>
+        <p class="msg-heading">Thank you. Your work is secured.</p>
+        <p class="msg-body">
+          Your acquisition has been confirmed. You will receive a receipt at
+          <strong id="receiptEmail"></strong>.<br />
+          Henry's team will be in touch shortly regarding delivery and provenance documentation.
+        </p>
+        <p class="ref-code" id="refCode"></p>
+      </div>
+
+      <!-- Cancel message -->
+      <div class="message-box message-cancel" id="msgCancel">
+        <span class="msg-icon">Payment Incomplete</span>
+        <p class="msg-heading">Your session is still open.</p>
+        <p class="msg-body">
+          No charge was made. When you are ready to proceed, simply complete the form again.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Section E: Footer ───────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-name">Art Africa &nbsp;·&nbsp; <span style="font-size:0.85rem;color:var(--muted);">Est. 2024</span></span>
+        <span class="footer-line">Henry Kweku Duah — Managing Partner</span>
+        <span class="footer-line"><a href="mailto:henry@artafrica.gallery">henry@artafrica.gallery</a></span>
+        <span class="footer-line"><a href="https://instagram.com/artafrica" target="_blank" rel="noopener">@artafrica</a></span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-wrapper -->
+
+<script>
+  // ─────────────────────────────────────────────────────────
+  //  Supabase client
+  // ─────────────────────────────────────────────────────────
+  const supabase = window.supabase.createClient(
+    'https://ogjpqfchvmckefklbhvx.supabase.co',
+    'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
+  );
+
+  // ─────────────────────────────────────────────────────────
+  //  SALE CONFIG — Update these values for each transaction
+  // ─────────────────────────────────────────────────────────
+  const SALE_CONFIG = {
+    paystackPublicKey: 'pk_live_ff29e6e164d23a46207076209574b3b5a9ea1749',
+    artworkTitle:      'Yayira',
+    artistName:        'Simon Osei',
+    medium:            'Oil on Canvas',
+    dimensions:        '36\u2033 \u00d7 48\u2033',
+    year:              '2024',
+    curatorialNote:    'A meditation on identity and belonging, Yayira draws from Ewe cultural memory to explore the tension between rootedness and displacement. Osei\u2019s layered brushwork invites the viewer into a space of quiet introspection and ancestral resonance.',
+    price:             1,           // In USD (whole number) — set to 1 for testing
+    currency:          'USD',
+    artworkImageUrl:   '',          // Paste image URL here, or leave empty for placeholder
+    contactEmail:      'henry@artafrica.gallery',
+    instagram:         '@artafrica',
+  };
+
+  // ─────────────────────────────────────────────────────────
+  //  Populate page content from config
+  // ─────────────────────────────────────────────────────────
+  (function populatePage() {
+    document.title = `Art Africa \u2014 ${SALE_CONFIG.artworkTitle}`;
+
+    // Artwork image or placeholder
+    const wrap = document.getElementById('artworkImageWrap');
+    if (SALE_CONFIG.artworkImageUrl) {
+      const img = document.createElement('img');
+      img.src = SALE_CONFIG.artworkImageUrl;
+      img.alt = SALE_CONFIG.artworkTitle;
+      wrap.appendChild(img);
+    } else {
+      wrap.innerHTML = `
+        <div class="artwork-placeholder">
+          <span class="placeholder-title">${SALE_CONFIG.artworkTitle}</span>
+          <span class="placeholder-sub">${SALE_CONFIG.artistName} &nbsp;\u00b7\u00a0 ${SALE_CONFIG.year}</span>
+        </div>`;
+    }
+
+    document.getElementById('artworkTitle').textContent    = SALE_CONFIG.artworkTitle;
+    document.getElementById('artworkArtist').textContent   = SALE_CONFIG.artistName;
+    document.getElementById('metaMedium').textContent      = SALE_CONFIG.medium;
+    document.getElementById('metaDimensions').textContent  = SALE_CONFIG.dimensions;
+    document.getElementById('metaYear').textContent        = SALE_CONFIG.year;
+    document.getElementById('artworkNote').textContent     = SALE_CONFIG.curatorialNote;
+
+    const formatted = new Intl.NumberFormat('en-US', {
+      style: 'currency', currency: SALE_CONFIG.currency, minimumFractionDigits: 0
+    }).format(SALE_CONFIG.price);
+    document.getElementById('artworkPrice').textContent    = formatted;
+
+    // Footer
+    const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
+    emailLinks.forEach(el => { el.href = `mailto:${SALE_CONFIG.contactEmail}`; el.textContent = SALE_CONFIG.contactEmail; });
+    const igLinks = document.querySelectorAll('a[href*="instagram"]');
+    igLinks.forEach(el => { el.textContent = SALE_CONFIG.instagram; });
+  })();
+
+  // ─────────────────────────────────────────────────────────
+  //  Payment form + Paystack
+  // ─────────────────────────────────────────────────────────
+  const form    = document.getElementById('paymentForm');
+  const payBtn  = document.getElementById('payBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name  = document.getElementById('buyerName').value.trim();
+    const email = document.getElementById('buyerEmail').value.trim();
+
+    if (!name || !email) {
+      alert('Please enter your full name and email address.');
+      return;
+    }
+
+    payBtn.disabled = true;
+    payBtn.textContent = 'Opening secure payment\u2026';
+
+    const popup = new PaystackPop();
+    popup.newTransaction({
+      key:      SALE_CONFIG.paystackPublicKey,
+      email:    email,
+      amount:   SALE_CONFIG.price * 100,
+      currency: SALE_CONFIG.currency,
+      ref:      'ARTAFRICA-' + Date.now(),
+      metadata: {
+        custom_fields: [
+          { display_name: 'Artwork',    variable_name: 'artwork',    value: SALE_CONFIG.artworkTitle },
+          { display_name: 'Artist',     variable_name: 'artist',     value: SALE_CONFIG.artistName   },
+          { display_name: 'Buyer Name', variable_name: 'buyer_name', value: name                     },
+        ]
+      },
+      onSuccess: async function(transaction) {
+        await savePurchase({
+          buyer_name:           name,
+          buyer_email:          email,
+          buyer_phone:          document.getElementById('buyerPhone').value.trim() || null,
+          artwork_title:        SALE_CONFIG.artworkTitle,
+          artist_name:          SALE_CONFIG.artistName,
+          amount:               SALE_CONFIG.price,
+          currency:             SALE_CONFIG.currency,
+          paystack_reference:   transaction.reference,
+          status:               'completed',
+        });
+        showConfirmation(email, transaction.reference);
+      },
+      onCancel: function() {
+        payBtn.disabled = false;
+        payBtn.textContent = 'Complete Purchase';
+        showCancel();
+      }
+    });
+  });
+
+  async function savePurchase(data) {
+    const { error } = await supabase.from('purchases').insert([data]);
+    if (error) console.error('Supabase insert error:', error.message);
+  }
+
+  function showConfirmation(email, ref) {
+    form.style.display = 'none';
+    document.getElementById('msgCancel').classList.remove('visible');
+    document.getElementById('receiptEmail').textContent = email;
+    document.getElementById('refCode').textContent      = 'Reference: ' + ref;
+    document.getElementById('msgSuccess').classList.add('visible');
+  }
+
+  function showCancel() {
+    document.getElementById('msgCancel').classList.add('visible');
+    setTimeout(() => {
+      document.getElementById('msgCancel').classList.remove('visible');
+    }, 6000);
+  }
+</script>
+</body>
+</html>
