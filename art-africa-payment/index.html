@@ -547,7 +547,7 @@
           <input type="tel" id="buyerPhone" name="buyerPhone" placeholder="+233 xx xxx xxxx" />
         </div>
 
-        <button type="submit" class="btn-pay" id="payBtn">Complete Purchase</button>
+        <button type="button" class="btn-pay" id="payBtn" onclick="handlePayment()">Complete Purchase</button>
       </form>
 
       <!-- Confirmation message -->
@@ -590,17 +590,19 @@
 
 <script>
   // ─────────────────────────────────────────────────────────
-  //  Supabase client
+  //  Supabase — init after DOM ready
   // ─────────────────────────────────────────────────────────
   let supabase = null;
-  try {
-    supabase = window.supabase.createClient(
-      'https://ogjpqfchvmckefklbhvx.supabase.co',
-      'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
-    );
-  } catch (e) {
-    console.error('Supabase init failed:', e.message);
-  }
+  window.addEventListener('load', function () {
+    try {
+      supabase = window.supabase.createClient(
+        'https://ogjpqfchvmckefklbhvx.supabase.co',
+        'sb_publishable_tHuc9FotTueOe9mvhIe6mw_Kz8C_FB9'
+      );
+    } catch (e) {
+      console.warn('Supabase init failed:', e.message);
+    }
+  });
 
   // ─────────────────────────────────────────────────────────
   //  SALE CONFIG — Update these values for each transaction
@@ -661,16 +663,12 @@
   })();
 
   // ─────────────────────────────────────────────────────────
-  //  Payment form + Paystack
+  //  Payment handler — called directly by button onclick
   // ─────────────────────────────────────────────────────────
-  const form    = document.getElementById('paymentForm');
-  const payBtn  = document.getElementById('payBtn');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
+  function handlePayment() {
     const name  = document.getElementById('buyerName').value.trim();
     const email = document.getElementById('buyerEmail').value.trim();
+    const payBtn = document.getElementById('payBtn');
 
     if (!name || !email) {
       alert('Please enter your full name and email address.');
@@ -696,15 +694,15 @@
         },
         callback: async function(response) {
           await savePurchase({
-            buyer_name:           name,
-            buyer_email:          email,
-            buyer_phone:          document.getElementById('buyerPhone').value.trim() || null,
-            artwork_title:        SALE_CONFIG.artworkTitle,
-            artist_name:          SALE_CONFIG.artistName,
-            amount:               SALE_CONFIG.price,
-            currency:             SALE_CONFIG.currency,
-            paystack_reference:   response.reference,
-            status:               'completed',
+            buyer_name:         name,
+            buyer_email:        email,
+            buyer_phone:        document.getElementById('buyerPhone').value.trim() || null,
+            artwork_title:      SALE_CONFIG.artworkTitle,
+            artist_name:        SALE_CONFIG.artistName,
+            amount:             SALE_CONFIG.price,
+            currency:           SALE_CONFIG.currency,
+            paystack_reference: response.reference,
+            status:             'completed',
           });
           showConfirmation(email, response.reference);
         },
@@ -721,7 +719,7 @@
       payBtn.disabled = false;
       payBtn.textContent = 'Complete Purchase';
     }
-  });
+  }
 
   async function savePurchase(data) {
     const { error } = await supabase.from('purchases').insert([data]);
