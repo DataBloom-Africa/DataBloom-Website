@@ -1,0 +1,546 @@
+/* ─── Apply page ─────────────────────────────────────────────────────────── */
+.fca-page {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1a2332;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+/* ─── Page header ────────────────────────────────────────────────────────── */
+.fca-page-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.fca-page-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fca-back-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1B8A7E;
+  text-decoration: none;
+  letter-spacing: 0.2px;
+  transition: color 0.15s ease;
+}
+
+.fca-back-link:hover {
+  color: #146b61;
+}
+
+.fca-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fca-cohort-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1B8A7E;
+  background: rgba(27,138,126,0.08);
+  border: 1px solid rgba(27,138,126,0.2);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.fca-header-deadline {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
+.fca-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────────────── */
+.fca-sidebar {
+  position: sticky;
+  top: 64px;
+}
+
+.fca-sidebar-inner {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.fca-sidebar-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin: 0 0 14px;
+}
+
+.fca-section-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.fca-section-nav li + li {
+  margin-top: 2px;
+}
+
+.fca-section-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.fca-section-nav-item:hover {
+  background: #f1f5f9;
+}
+
+.fca-nav-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0d1f2d;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fca-nav-label {
+  font-size: 13px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.fca-sidebar-note {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+}
+
+.fca-sidebar-note p {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.fca-sidebar-note p:last-child {
+  margin: 0;
+}
+
+/* ─── Main form area ─────────────────────────────────────────────────────── */
+.fca-main {
+  min-width: 0;
+}
+
+.fca-form-header {
+  margin-bottom: 32px;
+}
+
+.fca-form-header h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 700;
+  color: #0d1f2d;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.fca-form-header p {
+  font-size: 0.95rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ─── Form sections ──────────────────────────────────────────────────────── */
+.fca-form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fca-form-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 28px 32px 32px;
+  margin-bottom: 16px;
+  scroll-margin-top: 80px;
+}
+
+.fca-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.fca-section-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #0d1f2d;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fca-section-header h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0d1f2d;
+  margin: 0;
+}
+
+/* ─── Fields ─────────────────────────────────────────────────────────────── */
+.fca-field {
+  margin-bottom: 18px;
+}
+
+.fca-field:last-child {
+  margin-bottom: 0;
+}
+
+.fca-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.fca-field label,
+.fca-field legend {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.fca-field input[type="text"],
+.fca-field input[type="email"],
+.fca-field input[type="tel"],
+.fca-field input[type="date"],
+.fca-field select,
+.fca-field textarea {
+  width: 100%;
+  padding: 10px 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #1a2332;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 7px;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  box-sizing: border-box;
+  appearance: auto;
+}
+
+.fca-field input:focus,
+.fca-field select:focus,
+.fca-field textarea:focus {
+  border-color: #1B8A7E;
+  box-shadow: 0 0 0 3px rgba(27,138,126,0.1);
+}
+
+.fca-field textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.fca-input-err {
+  border-color: #ef4444 !important;
+}
+
+.fca-input-err:focus {
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important;
+}
+
+.fca-field-error {
+  display: block;
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+.fca-hint {
+  display: block;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.fca-req {
+  color: #ef4444;
+}
+
+.fca-opt {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+/* ─── Radio & checkbox ───────────────────────────────────────────────────── */
+.fca-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fca-fieldset legend {
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 10px;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.fca-radio-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.fca-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 7px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.fca-radio-label:has(input:checked) {
+  border-color: #1B8A7E;
+  background: rgba(27,138,126,0.05);
+  color: #1B8A7E;
+  font-weight: 500;
+}
+
+.fca-radio-label input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #1B8A7E;
+  cursor: pointer;
+}
+
+.fca-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  line-height: 1.55;
+}
+
+.fca-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: #1B8A7E;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ─── Submit ─────────────────────────────────────────────────────────────── */
+.fca-submit-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #dc2626;
+  margin-bottom: 16px;
+}
+
+.fca-submit-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.fca-btn-primary {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 44px;
+  background: #1B8A7E;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 12px rgba(27,138,126,0.3);
+  width: 100%;
+  text-align: center;
+}
+
+.fca-btn-primary:hover:not(:disabled) {
+  background: #146b61;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(27,138,126,0.4);
+}
+
+.fca-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fca-submit-note {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.fca-btn-secondary {
+  display: inline-block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 28px;
+  background: transparent;
+  color: #1B8A7E;
+  border: 1.5px solid #1B8A7E;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.fca-btn-secondary:hover {
+  background: #1B8A7E;
+  color: #ffffff;
+}
+
+/* ─── Success screen ─────────────────────────────────────────────────────── */
+.fca-success-screen {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  background: #f8fafc;
+}
+
+.fca-success-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 56px 48px;
+  max-width: 540px;
+  text-align: center;
+}
+
+.fca-success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #F5A623;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.fca-success-card h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0d1f2d;
+  margin: 0 0 14px;
+  letter-spacing: -0.02em;
+}
+
+.fca-success-card p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #64748b;
+  margin-bottom: 32px;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .fca-layout {
+    grid-template-columns: 1fr;
+    padding: 32px 20px 60px;
+  }
+
+  .fca-sidebar {
+    position: static;
+    display: none;
+  }
+
+  .fca-form-section {
+    padding: 22px 20px 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .fca-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .fca-page-header {
+    padding: 12px 20px;
+  }
+
+  .fca-header-deadline {
+    display: none;
+  }
+
+  .fca-success-card {
+    padding: 36px 24px;
+  }
+}

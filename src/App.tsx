@@ -15,6 +15,7 @@ const CorporateTraining = lazy(() => import('./pages/services/CorporateTraining'
 const TechSolutions = lazy(() => import('./pages/services/TechSolutions').then(m => ({ default: m.TechSolutions })));
 const CommunityOutreach = lazy(() => import('./pages/services/CommunityOutreach').then(m => ({ default: m.CommunityOutreach })));
 const FutureCode = lazy(() => import('./pages/FutureCode').then(m => ({ default: m.FutureCode })));
+const FutureCodeApply = lazy(() => import('./pages/FutureCodeApply').then(m => ({ default: m.FutureCodeApply })));
 const IntelligentBusiness = lazy(() => import('./pages/IntelligentBusiness').then(m => ({ default: m.IntelligentBusiness })));
 const HighSchoolClub = lazy(() => import('./pages/HighSchoolClub').then(m => ({ default: m.HighSchoolClub })));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy').then(m => ({ default: m.PrivacyPolicy })));
@@ -61,6 +62,7 @@ function App() {
 
             {/* Program Routes */}
             <Route path="/programs/future-code" element={<FutureCode />} />
+            <Route path="/programs/future-code/apply" element={<FutureCodeApply />} />
             <Route path="/programs/intelligent-business" element={<IntelligentBusiness />} />
             <Route path="/programs/high-school-club" element={<HighSchoolClub />} />
           </Routes>
