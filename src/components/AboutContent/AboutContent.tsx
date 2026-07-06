@@ -8,16 +8,16 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)" },
-  { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)" },
-  { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)" },
-  { name: "Eugene", title: "Technical Team" },
-  { name: "Chrysol", title: "Technical Team" },
-  { name: "Priscilla", title: "Media & Storytelling" },
-  { name: "Ryan Kojo", title: "Media & Storytelling" },
-  { name: "Andy", title: "Media & Storytelling" },
-  { name: "Semekor", title: "Operations" },
-  { name: "Seklenam", title: "Operations" },
+  { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
+  { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg" },
+  { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg" },
+  { name: "Eugene", title: "Technical Team", photo: "/Team/Eugene.jpg" },
+  { name: "Chrysol", title: "Technical Team", photo: "/Team/Chrysol.jpg" },
+  { name: "Priscilla", title: "Media & Storytelling", photo: "/Team/Priscilla.jpg" },
+  { name: "Ryan Kojo", title: "Media & Storytelling", photo: "/Team/RyanKojo.jpg" },
+  { name: "Andy", title: "Media & Storytelling", photo: "/Team/Andy.jpg" },
+  { name: "Semekor", title: "Operations", photo: "/Team/Semekor.jpg" },
+  { name: "Seklenam", title: "Operations", photo: "/Team/Seklenam.jpg" },
 ];
 
 const getInitials = (name: string) =>
