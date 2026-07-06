@@ -8,8 +8,8 @@ interface TeamMember {
 }
 
 const teamMembers: TeamMember[] = [
-  { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
   { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg" },
+  { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
   { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg" },
   { name: "Eugene", title: "Technical Team", photo: "/Team/Eugene.jpg" },
   { name: "Chrysol", title: "Technical Team", photo: "/Team/Chrysol.jpg" },
