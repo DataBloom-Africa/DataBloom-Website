@@ -1,7 +1,6 @@
 export * from './Navbar';
 export * from './Hero';
 export * from './Gallery';
-export * from './Services';
 export * from './Programs';
 export * from './Insights';
 export * from './Footer';
@@ -12,3 +11,4 @@ export * from './PageHero';
 export * from './ServiceDetail';
 export * from './ProgramDetail';
 export * from './Testimonials';
+export * from './FeaturedProgram';

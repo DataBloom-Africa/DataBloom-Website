@@ -5,15 +5,12 @@ import { Navbar, Footer } from './components';
 
 const Home = lazy(() => import('./pages/Home').then(m => ({ default: m.Home })));
 const About = lazy(() => import('./pages/About').then(m => ({ default: m.About })));
-const ServicesPage = lazy(() => import('./pages/ServicesPage').then(m => ({ default: m.ServicesPage })));
 const ProgramsPage = lazy(() => import('./pages/ProgramsPage').then(m => ({ default: m.ProgramsPage })));
 const InsightsPage = lazy(() => import('./pages/InsightsPage').then(m => ({ default: m.InsightsPage })));
 const Donations = lazy(() => import('./pages/Donations').then(m => ({ default: m.Donations })));
 const Contact = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
-const AITraining = lazy(() => import('./pages/services/AITraining').then(m => ({ default: m.AITraining })));
-const CorporateTraining = lazy(() => import('./pages/services/CorporateTraining').then(m => ({ default: m.CorporateTraining })));
-const TechSolutions = lazy(() => import('./pages/services/TechSolutions').then(m => ({ default: m.TechSolutions })));
-const CommunityOutreach = lazy(() => import('./pages/services/CommunityOutreach').then(m => ({ default: m.CommunityOutreach })));
+const CapacityBuilding = lazy(() => import('./pages/programs/CapacityBuilding').then(m => ({ default: m.CapacityBuilding })));
+const CommunityOutreach = lazy(() => import('./pages/programs/CommunityOutreach').then(m => ({ default: m.CommunityOutreach })));
 const FutureCode = lazy(() => import('./pages/FutureCode').then(m => ({ default: m.FutureCode })));
 const FutureCodeApply = lazy(() => import('./pages/FutureCodeApply').then(m => ({ default: m.FutureCodeApply })));
 const IntelligentBusiness = lazy(() => import('./pages/IntelligentBusiness').then(m => ({ default: m.IntelligentBusiness })));
@@ -43,18 +40,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/services" element={<ServicesPage />} />
             <Route path="/programs" element={<ProgramsPage />} />
             <Route path="/insights" element={<InsightsPage />} />
             <Route path="/donations" element={<Donations />} />
             <Route path="/contact" element={<Contact />} />
-            
-            {/* Individual Service Pages */}
-            <Route path="/services/ai-training" element={<AITraining />} />
-            <Route path="/services/corporate-training" element={<CorporateTraining />} />
-            <Route path="/services/tech-solutions" element={<TechSolutions />} />
-            <Route path="/services/community-outreach" element={<CommunityOutreach />} />
-            
+
             {/* Policy Routes */}
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-conditions" element={<TermsConditions />} />
@@ -63,7 +53,9 @@ function App() {
             {/* Program Routes */}
             <Route path="/programs/future-code" element={<FutureCode />} />
             <Route path="/programs/future-code/apply" element={<FutureCodeApply />} />
+            <Route path="/programs/capacity-building" element={<CapacityBuilding />} />
             <Route path="/programs/intelligent-business" element={<IntelligentBusiness />} />
+            <Route path="/programs/community-outreach" element={<CommunityOutreach />} />
             <Route path="/programs/high-school-club" element={<HighSchoolClub />} />
           </Routes>
           </Suspense>

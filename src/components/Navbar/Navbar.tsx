@@ -19,7 +19,6 @@ export const Navbar: React.FC = () => {
         <div className="nav-links">
           <Link to="/" className="nav-item">HOME</Link>
           <Link to="/about" className="nav-item">ABOUT US</Link>
-          <Link to="/services" className="nav-item">SERVICES</Link>
           <Link to="/programs" className="nav-item">PROGRAMS</Link>
           <Link to="/donations" className="nav-item">DONATE</Link>
           <Link to="/contact" className="nav-item">CONTACT</Link>

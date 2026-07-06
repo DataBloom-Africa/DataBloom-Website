@@ -4,24 +4,24 @@ import './Programs.css';
 const programsData = [
   {
     id: 1,
-    title: "Future Code Cohort 2",
-    description: "Our flagship Data and AI training programme is back. Built for college-level students ready to move beyond the classroom and start building real-world skills.",
+    title: "Future Code",
+    description: "Our flagship data and AI training programme, from hands-on foundations through to building and shipping a real product with our solutions team.",
     image: "/programs/Future Code 2.webp",
     slug: "future-code"
   },
   {
     id: 2,
-    title: "The Intelligent Business Training Series",
-    description: "An ongoing series of live sessions for industry professionals and business leaders exploring how AI is transforming business across Africa.",
-    image: "/programs/Intelligent Business.webp",
-    slug: "intelligent-business"
+    title: "Capacity-Building Partnerships",
+    description: "We partner with organisations and institutions to extend data and AI capacity-building, including our ongoing Intelligent Business Training Series for industry professionals.",
+    image: "/services/Coperate%20Training%20and%20Capacity%20Building.webp",
+    slug: "capacity-building"
   },
   {
     id: 3,
-    title: "DataBloom High School Club",
-    description: "Taking tech to the classroom. Our programme brings data and AI literacy directly to secondary students, sparking curiosity and building confidence.",
+    title: "School & Community Outreach",
+    description: "Grassroots initiatives, including our DataBloom High School Club, that bring data and AI literacy directly to secondary students and underserved communities.",
     image: "/programs/Peki launch.webp",
-    slug: "high-school-club"
+    slug: "community-outreach"
   }
 ];
 
@@ -29,7 +29,7 @@ export const Programs: React.FC = () => {
   return (
     <section className="programs-section">
       <div className="programs-container">
-        <h2 className="programs-title">UPCOMING PROGRAMS</h2>
+        <h2 className="programs-title">OUR PROGRAMS</h2>
         
         <div className="programs-grid">
           {programsData.map((item) => (

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ServiceDetail } from '../../components';
+import { ServiceDetail, FeaturedProgram } from '../../components';
 
-export const CorporateTraining: React.FC = () => {
+export const CapacityBuilding: React.FC = () => {
   return (
     <ServiceDetail
       title="Capacity-Building Partnerships"
@@ -18,10 +18,18 @@ export const CorporateTraining: React.FC = () => {
       benefits={[
         "Stronger data-driven decision making",
         "Teams equipped for a digital future",
-        "A meaningful contribution to youth digital skills-building in Ghana",
+        "A meaningful contribution to youth digital skills-building in Africa",
         "An engaged, upskilled team",
         "Sustainable, locally-grounded tech capability"
       ]}
-    />
+    >
+      <FeaturedProgram
+        title="Intelligent Business Training Series"
+        description="An ongoing series of live sessions for industry professionals and business leaders exploring how AI is transforming business across Africa, run under this partnership programme."
+        image="/programs/Intelligent Business.webp"
+        href="/programs/intelligent-business"
+        ctaText="View Sessions"
+      />
+    </ServiceDetail>
   );
 };

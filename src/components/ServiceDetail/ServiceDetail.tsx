@@ -10,6 +10,7 @@ interface ServiceDetailProps {
   features: string[];
   benefits: string[];
   ctaText?: string;
+  children?: React.ReactNode;
 }
 
 export const ServiceDetail: React.FC<ServiceDetailProps> = ({
@@ -19,7 +20,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({
   description,
   features,
   benefits,
-  ctaText = "Contact Us to Learn More"
+  ctaText = "Contact Us to Learn More",
+  children
 }) => {
   return (
     <div className="service-detail">
@@ -54,6 +56,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({
               </ul>
             </div>
           </div>
+
+          {children}
 
           {/* CTA Section */}
           <div className="service-cta">

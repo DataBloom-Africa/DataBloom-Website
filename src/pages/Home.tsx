@@ -1,5 +1,5 @@
 import React from 'react';
-import { Hero, Gallery, Services, Programs, Insights, Testimonials } from '../components';
+import { Hero, Gallery, Programs, Insights, Testimonials } from '../components';
 import type { Testimonial } from '../components';
 
 const homeTestimonials: Testimonial[] = [
@@ -24,7 +24,6 @@ export const Home: React.FC = () => {
     <>
       <Hero />
       <Gallery />
-      <Services />
       <Programs />
       <Testimonials testimonials={homeTestimonials} />
       <Insights />

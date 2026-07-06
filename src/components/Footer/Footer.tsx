@@ -33,7 +33,6 @@ export const Footer: React.FC = () => {
           <ul className="footer-links">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About Us</Link></li>
-            <li><Link to="/services">Services</Link></li>
             <li><Link to="/programs">Programs</Link></li>
             <li><Link to="/insights">Insights</Link></li>
             <li><Link to="/contact">Contact Us</Link></li>

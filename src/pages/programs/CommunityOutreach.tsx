@@ -1,10 +1,10 @@
 import React from 'react';
-import { ServiceDetail } from '../../components';
+import { ServiceDetail, FeaturedProgram } from '../../components';
 
 export const CommunityOutreach: React.FC = () => {
   return (
-    <ServiceDetail 
-      title="Community Outreach"
+    <ServiceDetail
+      title="School & Community Outreach"
       subtitle="Democratizing Digital Literacy at Every Level."
       heroImage="/services/Community%20Outreach.webp"
       description="At DataBloom Africa, we believe that digital opportunity should be accessible to all. Our grassroots initiatives and high school clubs introduce young minds and underserved communities to the world of data and AI, sparking the next generation of African builders."
@@ -22,6 +22,14 @@ export const CommunityOutreach: React.FC = () => {
         "Empowerment of the next generation",
         "Bridging the rural-urban digital divide"
       ]}
-    />
+    >
+      <FeaturedProgram
+        title="DataBloom High School Club"
+        description="Our flagship outreach initiative, bringing data literacy and AI fundamentals directly to secondary school classrooms across Africa."
+        image="/programs/Peki launch.webp"
+        href="/programs/high-school-club"
+        ctaText="Learn More"
+      />
+    </ServiceDetail>
   );
 };
