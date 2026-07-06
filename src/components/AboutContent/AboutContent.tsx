@@ -5,19 +5,20 @@ interface TeamMember {
   name: string;
   title: string;
   photo?: string;
+  photoPosition?: string;
 }
 
 const teamMembers: TeamMember[] = [
   { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg" },
   { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
-  { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg" },
-  { name: "Andy Nyankson Taylor", title: "Creative Director", photo: "/Team/Andy.jpg" },
-  { name: "Priscilla Appiah Bamfo", title: "Head of Brand Strategy and Digital Engagement", photo: "/Team/Priscilla.jpg" },
-  { name: "Seklenam Neshama AnoDomini", title: "Lead, Donor Engagement", photo: "/Team/Seklenam.jpg" },
-  { name: "Semerkor Ano Domini", title: "Program Lead, Operations and Communications", photo: "/Team/Semekor.jpg" },
-  { name: "Chrysol Amoah-Bamfo", title: "Technical Program Lead", photo: "/Team/Chrysol.jpg" },
-  { name: "Ryan Kojo Duah", title: "Content Production Lead", photo: "/Team/RyanKojo.jpg" },
+  { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg", photoPosition: "center 25%" },
   { name: "Eugene Tettey Ayerkain", title: "Lead Technical Facilitator", photo: "/Team/Eugene.jpg" },
+  { name: "Chrysol Amoah-Bamfo", title: "Technical Program Lead", photo: "/Team/Chrysol.jpg" },
+  { name: "Priscilla Appiah Bamfo", title: "Head of Brand Strategy and Digital Engagement", photo: "/Team/Priscilla.jpg" },
+  { name: "Semerkor Ano Domini", title: "Program Lead, Operations and Communications", photo: "/Team/Semekor.jpg" },
+  { name: "Seklenam Neshama AnoDomini", title: "Lead, Donor Engagement", photo: "/Team/Seklenam.jpg" },
+  { name: "Andy Nyankson Taylor", title: "Creative Director", photo: "/Team/Andy.jpg" },
+  { name: "Ryan Kojo Duah", title: "Content Production Lead", photo: "/Team/RyanKojo.jpg", photoPosition: "center 20%" },
 ];
 
 const getInitials = (name: string) =>
@@ -87,7 +88,12 @@ export const AboutContent: React.FC = () => {
             <div key={member.name} className="team-member-card">
               <div className="team-member-avatar">
                 {member.photo ? (
-                  <img src={member.photo} alt={member.name} className="team-member-photo" />
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="team-member-photo"
+                    style={member.photoPosition ? { objectPosition: member.photoPosition } : undefined}
+                  />
                 ) : (
                   getInitials(member.name)
                 )}
