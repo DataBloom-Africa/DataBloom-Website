@@ -129,6 +129,7 @@
 }
 
 .cta-button {
+  display: inline-block;
   background-color: #DA9D1D;
   color: #fff;
   border: none;
@@ -138,6 +139,7 @@
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
+  text-align: center;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -155,5 +157,9 @@
   }
   .service-detail-hero {
     height: 400px;
+  }
+  .cta-button {
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
   }
 }
