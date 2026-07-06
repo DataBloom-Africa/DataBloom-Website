@@ -7,7 +7,7 @@ export const Hero: React.FC = () => {
     <section className="hero">
       <div className="hero-content">
         <h1 className="hero-title">
-          CULTIVATING <br />
+          CULTIVATORS OF <br />
           AFRICA’S DATA <br />
           POTENTIAL
         </h1>
