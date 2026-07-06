@@ -41,6 +41,29 @@
   gap: 1.5rem;
 }
 
+.testimonial-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #DCE3E6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.testimonial-avatar-placeholder {
+  width: 60%;
+  height: 60%;
+  color: #A9B4B9;
+}
+
 .testimonial-quote {
   font-family: 'Poppins', var(--font-family-sans);
   font-size: 1.05rem;

@@ -12,7 +12,7 @@ export const RefundPolicy: React.FC = () => {
       <p>By enrolling in any paid service, you agree to this Refund Policy in addition to our Terms of Service and Privacy Policy.</p>
 
       <h2>2. General Refund Principles</h2>
-      <p>At DataBloom Africa, we are committed to delivering high-quality learning experiences. Due to the nature of our programs — many of which involve limited slots, resource allocation, and structured delivery — refunds are granted only under specific conditions.</p>
+      <p>At DataBloom Africa, we are committed to delivering high-quality learning experiences. Due to the nature of our programs, many of which involve limited slots, resource allocation, and structured delivery, refunds are granted only under specific conditions.</p>
       <p>Refund eligibility depends on:</p>
       <ul>
         <li>The type of program or service</li>

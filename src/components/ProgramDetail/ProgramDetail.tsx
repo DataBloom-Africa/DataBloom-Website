@@ -190,7 +190,7 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
                             <div className="final-price">
                               Total: <span className="price-val">GHS {price}</span>
                               {originalPrice && (
-                                <span className="form-discount-note"> — Discounted price (was GHS {originalPrice})</span>
+                                <span className="form-discount-note"> (discounted price, was GHS {originalPrice})</span>
                               )}
                             </div>
                           </div>

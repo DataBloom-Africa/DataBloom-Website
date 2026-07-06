@@ -14,14 +14,14 @@ const servicesData = [
     id: 2,
     title: "Capacity-Building Partnerships",
     slug: "corporate-training",
-    description: "We partner with organisations and institutions to extend data and AI capacity-building beyond our core cohorts — every partnership helps fund free training seats for Ghanaian youth.",
+    description: "We partner with organisations and institutions to extend data and AI capacity-building beyond our core cohorts. Every partnership helps fund free training seats for African youth.",
     image: "/services/Coperate%20Training%20and%20Capacity%20Building.webp"
   },
   {
     id: 3,
     title: "Applied Learning Projects",
     slug: "tech-solutions",
-    description: "Our advanced learners design and build real digital products for partner organisations as part of their training — turning classroom skills into deployed, real-world impact, with proceeds reinvested into our programmes.",
+    description: "Our advanced learners design and build real digital products for partner organisations as part of their training, turning classroom skills into deployed, real-world impact, with proceeds reinvested into our programmes.",
     image: "/services/Tech%20Solutions.webp"
   },
   {

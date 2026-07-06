@@ -18,7 +18,7 @@ export const TermsConditions: React.FC = () => {
         <li>Artificial intelligence</li>
         <li>Digital literacy</li>
       </ul>
-      <p>Our programmes include training cohorts, webinars, mentorship, and applied learning projects — with any programme fees reinvested to fund free access for learners who need it most.</p>
+      <p>Our programmes include training cohorts, webinars, mentorship, and applied learning projects. Any programme fees are reinvested to fund free access for learners who need it most.</p>
 
       <h2>3. Eligibility</h2>
       <p>To use our services:</p>
@@ -56,7 +56,7 @@ export const TermsConditions: React.FC = () => {
       <p>While we aim to provide valuable outcomes, we do not guarantee employment, certification, or specific results.</p>
 
       <h2>7. Intellectual Property</h2>
-      <p>All materials provided by DataBloom Africa — including training content, branding, videos, and resources — are protected by intellectual property laws. You may not:</p>
+      <p>All materials provided by DataBloom Africa, including training content, branding, videos, and resources, are protected by intellectual property laws. You may not:</p>
       <ul>
         <li>Reproduce or distribute materials without permission</li>
         <li>Use our content for commercial purposes without authorization</li>

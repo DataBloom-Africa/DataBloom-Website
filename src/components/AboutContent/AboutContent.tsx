@@ -4,6 +4,7 @@ import './AboutContent.css';
 interface TeamMember {
   name: string;
   title: string;
+  photo?: string;
 }
 
 const teamMembers: TeamMember[] = [
@@ -39,7 +40,7 @@ export const AboutContent: React.FC = () => {
           <div className="card-content">
             <h2 className="card-title">About</h2>
             <p className="card-text">
-              DataBloom Africa is a nonprofit initiative on a mission to close Africa's digital skills gap, one learner, one community at a time. We deliver hands-on data and AI training, and our advanced learners apply those skills to real projects for partner organisations — work that funds and sustains our free community programmes. Everything we do is designed to turn potential into impact.
+              DataBloom Africa is a nonprofit initiative on a mission to close Africa's digital skills gap, one learner, one community at a time. We deliver hands-on data and AI training, and our advanced learners apply those skills to real projects for partner organisations. That work funds and sustains our free community programmes. Everything we do is designed to turn potential into impact.
             </p>
           </div>
         </div>
@@ -55,7 +56,7 @@ export const AboutContent: React.FC = () => {
           <div className="card-content">
             <h2 className="card-title">Who We Are</h2>
             <p className="card-text">
-              We are a team of builders, educators, and problem-solvers who believe Africa's digital future starts with its people. Our team brings together expertise across machine learning, software engineering, data science, product development, and education; a diverse mix of skills united by a single mission. Together with community champions and industry practitioners, we are turning that conviction into reality. As a nonprofit, our growth is measured in learners trained and communities reached — not just products shipped.
+              We are a team of builders, educators, and problem-solvers who believe Africa's digital future starts with its people. Our team brings together expertise across machine learning, software engineering, data science, product development, and education; a diverse mix of skills united by a single mission. Together with community champions and industry practitioners, we are turning that conviction into reality. As a nonprofit, our growth is measured in learners trained and communities reached, not just products shipped.
             </p>
           </div>
         </div>
@@ -84,7 +85,13 @@ export const AboutContent: React.FC = () => {
         <div className="team-grid">
           {teamMembers.map((member) => (
             <div key={member.name} className="team-member-card">
-              <div className="team-member-avatar">{getInitials(member.name)}</div>
+              <div className="team-member-avatar">
+                {member.photo ? (
+                  <img src={member.photo} alt={member.name} className="team-member-photo" />
+                ) : (
+                  getInitials(member.name)
+                )}
+              </div>
               <p className="team-member-name">{member.name}</p>
               <p className="team-member-title">{member.title}</p>
             </div>

@@ -7,7 +7,7 @@ export const AboutIntro: React.FC = () => {
       <div className="about-intro-container">
         <div className="about-intro-text">
           <p>
-            At DataBloom Africa, we believe that data isn't just about numbers—it's about the people and communities those numbers represent. Our journey began with a simple mission: to bridge the digital divide and empower the next generation of African builders with the skills to shape their own future.
+            At DataBloom Africa, we believe that data isn't just about numbers. It's about the people and communities those numbers represent. Our journey began with a simple mission: to bridge the digital divide and empower the next generation of African builders with the skills to shape their own future.
           </p>
           <p>
             Through our flagship programs and secondary school outreach, we are creating a flourishing ecosystem where curious minds meet cutting-edge technical literacy. From Peki to Accra, we are building a network of innovators who are ready to move beyond the classroom and solve real-world challenges using Data and AI.

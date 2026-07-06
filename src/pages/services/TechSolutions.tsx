@@ -7,7 +7,7 @@ export const TechSolutions: React.FC = () => {
       title="Applied Technology Projects"
       subtitle="Real Projects, Built by Real Learners, for Real Impact."
       heroImage="/services/Tech%20Solutions.webp"
-      description="Our most advanced learners don't just study technology — they build it. Through our applied projects track, learner teams design, develop, and deploy real digital products for partner organisations and social enterprises, gaining hands-on experience while proceeds are reinvested directly into our free training and outreach programmes."
+      description="Our most advanced learners don't just study technology, they build it. Through our applied projects track, learner teams design, develop, and deploy real digital products for partner organisations and social enterprises, gaining hands-on experience while proceeds are reinvested directly into our free training and outreach programmes."
       features={[
         "Full-stack product development",
         "AI and Machine Learning integration",

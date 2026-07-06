@@ -11,15 +11,15 @@ const programsData = [
   },
   {
     id: 2,
-    title: "The Intelligent Business Webinar",
-    description: "Join us on 23rd May 2026 for a live session exploring how AI is transforming business and industry across Africa. Secure your spot now.",
+    title: "The Intelligent Business Training Series",
+    description: "An ongoing series of live sessions for industry professionals and business leaders exploring how AI is transforming business across Africa.",
     image: "/programs/Intelligent Business.webp",
     slug: "intelligent-business"
   },
   {
     id: 3,
     title: "DataBloom High School Club",
-    description: "Taking tech to the classroom. Our programme brings data and AI literacy directly to secondary students — sparking curiosity and building confidence.",
+    description: "Taking tech to the classroom. Our programme brings data and AI literacy directly to secondary students, sparking curiosity and building confidence.",
     image: "/programs/Peki launch.webp",
     slug: "high-school-club"
   }
