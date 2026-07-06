@@ -7,7 +7,7 @@ export const IntelligentBusiness: React.FC = () => {
       title="Intelligent Business Webinar"
       subtitle="Transforming Industry with Artificial Intelligence."
       heroImage="/programs/Intelligent Business.webp"
-      description="The Intelligent Business Webinar is designed to provide a comprehensive exploration of how artificial intelligence is transforming the business landscape across Africa. Bringing together industry leaders, tech innovators, and forward-thinking professionals, the webinar offers practical insights tailored for entrepreneurs, corporate decision-makers, and growth-driven individuals."
+      description="The Intelligent Business Webinar is a public education session exploring how artificial intelligence is transforming business and industry across Africa — open to entrepreneurs, small business owners, students, and anyone curious about AI's impact on Ghana's economy. All proceeds go toward funding free data and AI training seats for Ghanaian youth."
       details={[
         { label: "Date", value: "May 23rd, 2026" },
         { label: "Time", value: "12:00 PM GMT" },
@@ -28,7 +28,7 @@ export const IntelligentBusiness: React.FC = () => {
             <li>Navigating the legal and ethical landscape of AI in Ghana and beyond.</li>
             <li>Case studies of successful AI integration in African industries.</li>
           </ul>
-          <p>Don't miss this opportunity to gain a competitive edge in the rapidly evolving digital economy.</p>
+          <p>Your registration fee directly supports scholarships for our Future Code training cohort.</p>
         </>
       }
     />

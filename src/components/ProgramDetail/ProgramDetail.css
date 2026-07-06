@@ -85,6 +85,16 @@
   border: 1px solid #f0f0f0;
 }
 
+.payment-inscription-preview {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #135162;
+  background: #F4F6F8;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
 .price-tag {
   margin-bottom: 2rem;
   display: flex;

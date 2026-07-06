@@ -11,3 +11,4 @@ export * from './Partners';
 export * from './PageHero';
 export * from './ServiceDetail';
 export * from './ProgramDetail';
+export * from './Testimonials';

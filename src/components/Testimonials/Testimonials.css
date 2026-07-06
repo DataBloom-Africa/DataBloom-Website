@@ -1,0 +1,78 @@
+.testimonials-section {
+  width: 100%;
+  padding: 4rem 2rem;
+  background-color: var(--color-bg-white);
+}
+
+.testimonials-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.testimonials-title {
+  color: #000;
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 400;
+  margin: 0;
+}
+
+.testimonials-subtitle {
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0.75rem 0 3rem;
+  max-width: 640px;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background-color: #F4F6F8;
+  border-left: 4px solid #DA9D1D;
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.testimonial-quote {
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #222;
+  margin: 0;
+}
+
+.testimonial-attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.testimonial-name {
+  font-family: 'Poppins', var(--font-family-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #135162;
+}
+
+.testimonial-role {
+  font-family: 'Poppins', var(--font-family-sans);
+  font-size: 0.85rem;
+  color: #777;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}

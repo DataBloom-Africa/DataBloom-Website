@@ -11,6 +11,9 @@ export const Hero: React.FC = () => {
           AFRICA’S DATA <br />
           POTENTIAL
         </h1>
+        <p className="hero-subline">
+          Free and low-cost training, real-world builder projects, and community outreach for the next generation of African data &amp; AI talent.
+        </p>
         <Link to="/contact" className="hero-button">
           JOIN US
         </Link>

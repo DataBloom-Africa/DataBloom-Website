@@ -210,6 +210,10 @@ export const ProgramDetail: React.FC<ProgramDetailProps> = ({
             {!isRegistering && (
               <div className="program-sidebar">
                 <div className="cta-card">
+                  {paymentInscription && (
+                    <p className="payment-inscription-preview">{paymentInscription}</p>
+                  )}
+
                   {originalPrice && (
                     <div className="price-tag">
                       <div className="price-original">

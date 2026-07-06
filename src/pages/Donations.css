@@ -39,6 +39,54 @@
   background-color: #fff;
 }
 
+.donation-impact {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+  text-align: center;
+}
+
+.donation-impact h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  color: #135162;
+  margin-bottom: 2.5rem;
+}
+
+.donation-impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.donation-impact-item {
+  background-color: #F4F6F8;
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.donation-impact-amount {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #DA9D1D;
+}
+
+.donation-impact-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .donation-impact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Payment Section Refactor */
 .payment-section {
   padding: 8rem 2rem;

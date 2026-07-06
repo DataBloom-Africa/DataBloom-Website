@@ -46,6 +46,11 @@
   margin: 0;
 }
 
+.footer-tagline-sub {
+  opacity: 0.85;
+  margin-top: -0.5rem;
+}
+
 .footer-socials {
   display: flex;
   gap: 1rem;

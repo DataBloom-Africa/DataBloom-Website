@@ -1,6 +1,33 @@
 import React from 'react';
 import './AboutContent.css';
 
+interface TeamMember {
+  name: string;
+  title: string;
+}
+
+const teamMembers: TeamMember[] = [
+  { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)" },
+  { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)" },
+  { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)" },
+  { name: "Eugene", title: "Technical Team" },
+  { name: "Chrysol", title: "Technical Team" },
+  { name: "Priscilla", title: "Media & Storytelling" },
+  { name: "Ryan Kojo", title: "Media & Storytelling" },
+  { name: "Andy", title: "Media & Storytelling" },
+  { name: "Semekor", title: "Operations" },
+  { name: "Seklenam", title: "Operations" },
+];
+
+const getInitials = (name: string) =>
+  name
+    .split(' ')
+    .map((part) => part[0])
+    .filter(Boolean)
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+
 export const AboutContent: React.FC = () => {
   return (
     <section className="about-sections">
@@ -12,7 +39,7 @@ export const AboutContent: React.FC = () => {
           <div className="card-content">
             <h2 className="card-title">About</h2>
             <p className="card-text">
-              DataBloom Africa is where learning meets building. We are a data and AI training institution and technology solutions partner on a mission to close Africa's digital skills gap, one learner, one community, one solution at a time. From cohort-based training programmes to real-world product development, everything we do is designed to turn potential into impact.
+              DataBloom Africa is a nonprofit initiative on a mission to close Africa's digital skills gap, one learner, one community at a time. We deliver hands-on data and AI training, and our advanced learners apply those skills to real projects for partner organisations — work that funds and sustains our free community programmes. Everything we do is designed to turn potential into impact.
             </p>
           </div>
         </div>
@@ -28,7 +55,7 @@ export const AboutContent: React.FC = () => {
           <div className="card-content">
             <h2 className="card-title">Who We Are</h2>
             <p className="card-text">
-              We are a team of builders, educators, and problem-solvers who believe Africa's digital future starts with its people. Our team brings together expertise across machine learning, software engineering, data science, product development, and education; a diverse mix of skills united by a single mission. Together with community champions and industry practitioners, we are turning that conviction into reality.
+              We are a team of builders, educators, and problem-solvers who believe Africa's digital future starts with its people. Our team brings together expertise across machine learning, software engineering, data science, product development, and education; a diverse mix of skills united by a single mission. Together with community champions and industry practitioners, we are turning that conviction into reality. As a nonprofit, our growth is measured in learners trained and communities reached — not just products shipped.
             </p>
           </div>
         </div>
@@ -54,8 +81,14 @@ export const AboutContent: React.FC = () => {
       {/* The Team */}
       <div className="team-section">
         <h2 className="team-title text-teal">The Team</h2>
-        <div className="team-image-container">
-          <img src="/About/TheTeam.webp" alt="The DataBloom Africa Team" className="team-image" />
+        <div className="team-grid">
+          {teamMembers.map((member) => (
+            <div key={member.name} className="team-member-card">
+              <div className="team-member-avatar">{getInitials(member.name)}</div>
+              <p className="team-member-name">{member.name}</p>
+              <p className="team-member-title">{member.title}</p>
+            </div>
+          ))}
         </div>
       </div>
 

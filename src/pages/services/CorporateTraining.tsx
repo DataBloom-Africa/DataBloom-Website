@@ -3,24 +3,24 @@ import { ServiceDetail } from '../../components';
 
 export const CorporateTraining: React.FC = () => {
   return (
-    <ServiceDetail 
-      title="Corporate Training"
-      subtitle="Empowering Teams for a Data-Driven Future."
+    <ServiceDetail
+      title="Capacity-Building Partnerships"
+      subtitle="Extending Our Mission to Partner Organisations."
       heroImage="/services/Coperate%20Training%20and%20Capacity%20Building.webp"
-      description="We help organizations navigate the complexities of digital transformation by upskilling their workforce. Our tailored capacity-building programmes ensure that your team stays ahead of the curve in data literacy, AI integration, and modern tech workflows."
+      description="As part of our mission, we partner with organisations and institutions to extend data and AI capacity-building beyond our core learner cohorts. These partnerships are designed collaboratively around each partner's goals — and every partnership helps fund free training seats for Ghanaian youth who couldn't otherwise access this education."
       features={[
-        "Customized curriculum for business needs",
+        "Curriculum designed around each partner's goals",
         "On-site and remote training options",
-        "Executive AI strategy workshops",
-        "Industry-specific data literacy",
-        "Ongoing support and capacity building"
+        "AI literacy workshops for leadership teams",
+        "Sector-specific data literacy",
+        "Ongoing mentorship and capacity-building support"
       ]}
       benefits={[
-        "Increased organizational efficiency",
-        "Improved data-driven decision making",
-        "Competitive edge in the digital economy",
-        "Engaged and upskilled workforce",
-        "Sustainable tech transformation"
+        "Stronger data-driven decision making",
+        "Teams equipped for a digital future",
+        "A meaningful contribution to youth digital skills-building in Ghana",
+        "An engaged, upskilled team",
+        "Sustainable, locally-grounded tech capability"
       ]}
     />
   );

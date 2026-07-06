@@ -12,16 +12,16 @@ const servicesData = [
   },
   {
     id: 2,
-    title: "Corporate Training & Capacity Building",
+    title: "Capacity-Building Partnerships",
     slug: "corporate-training",
-    description: "Tailored learning experiences that upskill teams, strengthen internal capabilities, and prepare organisations for a data-driven future.",
+    description: "We partner with organisations and institutions to extend data and AI capacity-building beyond our core cohorts — every partnership helps fund free training seats for Ghanaian youth.",
     image: "/services/Coperate%20Training%20and%20Capacity%20Building.webp"
   },
   {
     id: 3,
-    title: "Tech Solutions & Product Development",
+    title: "Applied Learning Projects",
     slug: "tech-solutions",
-    description: "End-to-end technology design and development, turning complex business challenges into smart, scalable digital solutions.",
+    description: "Our advanced learners design and build real digital products for partner organisations as part of their training — turning classroom skills into deployed, real-world impact, with proceeds reinvested into our programmes.",
     image: "/services/Tech%20Solutions.webp"
   },
   {

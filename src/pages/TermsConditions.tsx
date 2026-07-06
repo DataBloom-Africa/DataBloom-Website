@@ -12,13 +12,13 @@ export const TermsConditions: React.FC = () => {
       <p>If you do not agree with any part of these terms, you should not use our services.</p>
 
       <h2>2. About DataBloom Africa</h2>
-      <p>DataBloom Africa is a youth-driven initiative focused on empowering individuals with practical skills in:</p>
+      <p>DataBloom Africa is a youth-led nonprofit initiative focused on empowering individuals with practical skills in:</p>
       <ul>
         <li>Data analytics</li>
         <li>Artificial intelligence</li>
         <li>Digital literacy</li>
       </ul>
-      <p>Our services include training programs, webinars, mentorship, and digital innovation projects.</p>
+      <p>Our programmes include training cohorts, webinars, mentorship, and applied learning projects — with any programme fees reinvested to fund free access for learners who need it most.</p>
 
       <h2>3. Eligibility</h2>
       <p>To use our services:</p>
