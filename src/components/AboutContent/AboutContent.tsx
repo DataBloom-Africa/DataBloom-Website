@@ -11,13 +11,13 @@ const teamMembers: TeamMember[] = [
   { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg" },
   { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
   { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg" },
-  { name: "Eugene", title: "Technical Team", photo: "/Team/Eugene.jpg" },
-  { name: "Chrysol", title: "Technical Team", photo: "/Team/Chrysol.jpg" },
-  { name: "Priscilla", title: "Media & Storytelling", photo: "/Team/Priscilla.jpg" },
-  { name: "Ryan Kojo", title: "Media & Storytelling", photo: "/Team/RyanKojo.jpg" },
-  { name: "Andy", title: "Media & Storytelling", photo: "/Team/Andy.jpg" },
-  { name: "Semekor", title: "Operations", photo: "/Team/Semekor.jpg" },
-  { name: "Seklenam", title: "Operations", photo: "/Team/Seklenam.jpg" },
+  { name: "Andy Nyankson Taylor", title: "Creative Director", photo: "/Team/Andy.jpg" },
+  { name: "Priscilla Appiah Bamfo", title: "Head of Brand Strategy and Digital Engagement", photo: "/Team/Priscilla.jpg" },
+  { name: "Seklenam Neshama AnoDomini", title: "Lead, Donor Engagement", photo: "/Team/Seklenam.jpg" },
+  { name: "Semerkor Ano Domini", title: "Program Lead, Operations and Communications", photo: "/Team/Semekor.jpg" },
+  { name: "Chrysol Amoah-Bamfo", title: "Technical Program Lead", photo: "/Team/Chrysol.jpg" },
+  { name: "Ryan Kojo Duah", title: "Content Production Lead", photo: "/Team/RyanKojo.jpg" },
+  { name: "Eugene Tettey Ayerkain", title: "Lead Technical Facilitator", photo: "/Team/Eugene.jpg" },
 ];
 
 const getInitials = (name: string) =>
