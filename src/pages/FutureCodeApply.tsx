@@ -188,7 +188,7 @@ export const FutureCodeApply: React.FC = () => {
           <p>
             Thanks for applying to Future Code Cohort 2. We review every application carefully,
             and only qualified applicants will be contacted for an interview, by email or WhatsApp.
-            Places are limited to 30, so early applicants are prioritized. Check your inbox for a
+            Slots are limited to 30, so early applicants are prioritized. Check your inbox for a
             confirmation email.
           </p>
           <Link to="/programs/future-code" className="fca-btn-secondary">
@@ -210,7 +210,7 @@ export const FutureCodeApply: React.FC = () => {
           </Link>
           <div className="fca-header-meta">
             <span className="fca-cohort-tag">Cohort 2</span>
-            <span className="fca-header-deadline">Starts 3 August 2026 · 30 places</span>
+            <span className="fca-header-deadline">Starts 3 August 2026 · 30 slots</span>
           </div>
         </div>
       </div>

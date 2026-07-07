@@ -39,7 +39,7 @@ export const FutureCode: React.FC = () => {
             <div className="fc-stat-divider" />
             <div className="fc-stat">
               <span className="fc-stat-value">30</span>
-              <span className="fc-stat-label">Places only</span>
+              <span className="fc-stat-label">Slots only</span>
             </div>
             <div className="fc-stat-divider" />
             <div className="fc-stat">
