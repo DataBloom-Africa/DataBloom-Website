@@ -6,11 +6,10 @@ interface TeamMember {
   title: string;
   photo?: string;
   photoPosition?: string;
-  photoFit?: 'cover' | 'contain';
 }
 
 const teamMembers: TeamMember[] = [
-  { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg", photoFit: "contain" },
+  { name: "Henry Kweku Duah", title: "Co-Founder & Chief Executive Officer (CEO)", photo: "/Team/Henry.jpg" },
   { name: "Angel Gabriel Adaambiik", title: "Co-Founder & Chief Technology Officer (CTO)", photo: "/Team/Angel.jpg" },
   { name: "Raymond Nuertey Tetteh", title: "Co-Founder & Chief Operating Officer (COO)", photo: "/Team/Raymond.jpg", photoPosition: "center 25%" },
   { name: "Eugene Tettey Ayerkain", title: "Lead Technical Facilitator", photo: "/Team/Eugene.jpg" },
@@ -93,10 +92,7 @@ export const AboutContent: React.FC = () => {
                     src={member.photo}
                     alt={member.name}
                     className="team-member-photo"
-                    style={{
-                      ...(member.photoPosition ? { objectPosition: member.photoPosition } : {}),
-                      ...(member.photoFit ? { objectFit: member.photoFit } : {}),
-                    }}
+                    style={member.photoPosition ? { objectPosition: member.photoPosition } : undefined}
                   />
                 ) : (
                   getInitials(member.name)
